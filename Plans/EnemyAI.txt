@@ -1,0 +1,25 @@
+AI
+-------------
+Idle patrol
+Detect edges and turn around
+Will not run off edges to pursue.
+Range of vision
+Pursuit state where they chase the player
+Attack animation
+
+
+Types of Enemies
+-----------------
+Normal
+	is normal
+	Player can jump over this guy.
+Heavy
+	is larger, slower
+	Player cannot jump high enough to clear this guy safely.
+	> w/o the Bunny+Spring combo
+	Become solid blocks upon death
+Shooter
+	Does not move around
+	Faces only one direction
+	long range of vision
+	does not animate an attack, but shoots.

@@ -1,0 +1,10 @@
+Tasks
+--------------------------
+Brainstorm
+Level Design
+Asset Design
+Sound Design
+
+Source Control setup
+FlashDevelop setup
+Class Diagram

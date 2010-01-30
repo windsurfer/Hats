@@ -1,0 +1,39 @@
+-----------------------------------
+Ideas
+-----------------------------------
+
+THINGS
+	Chameleons
+	Hats
+	Spy
+	Magic!!!?!?
+
+Chameleon platformer
+	Control your camo to defend against the hawk
+	Sticky tongue-licking action
+
+Chameleon puzzle game
+	Collect different fruit/bugs to adopt different camo
+	in order to proceed through level
+	Sticky tongue-licking action
+
+"Phasing" blocks
+	Jumping platformer
+	Blocks change from real to fake and back
+	Based on hitting a switch, or timed
+
+HATS
+	You are a guy who wears hats.
+	The levels are made of hats.
+	You need to explore the world
+	and find the right hats
+	to talk to the right people
+	to unlock complete the fetch quests
+	to proceed to the next area.
+
+Dynamic levels: can be finished in 5 minutes, replayable
+
+
+
+
+---------------------------------------------------------

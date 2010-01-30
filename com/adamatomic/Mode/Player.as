@@ -35,12 +35,12 @@ package com.adamatomic.Mode
 			offset.y = 1;
 			
 			//basic player physics
-			var runSpeed:uint = 80;
-			drag.x = runSpeed*8;
+			var runSpeed:uint = 60;
+			drag.x = runSpeed*16;
 			acceleration.y = 420;
-			_jumpPower = 200;
+			_jumpPower = 125;
 			maxVelocity.x = runSpeed;
-			maxVelocity.y = _jumpPower;
+			maxVelocity.y = 200;
 			
 			//animations
 			addAnimation("idle", [0]);

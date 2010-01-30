@@ -17,12 +17,10 @@ package com.adamatomic.Mode
 		function PlayStateTiles():void
 		{
 			super();
-			
 			//create tilemap
 			_tilemap = new FlxTilemap();
 			_tilemap.collideIndex = 3;
-			_tilemap.loadMap(new TxtMap,ImgTiles,8);
-			//_tilemap.loadMap(new TxtMap2,ImgTiles,8); //This is an alternate tiny map
+			changeLevel(0);
 			
 			//create player and bullets
 			_bullets = new Array();
@@ -33,7 +31,7 @@ package com.adamatomic.Mode
 			
 			//add player and set up camera
 			this.add(_player);
-			FlxG.follow(_player,12.5);
+			FlxG.follow(_player,2.5);
 			FlxG.followAdjust(0.5,0.0);
 			_tilemap.follow();	//Set the followBounds to the map dimensions
 			
@@ -63,7 +61,9 @@ package com.adamatomic.Mode
 			if(FlxG.keys.justPressed("M"))
 			{
 				for(var i:uint = 0; i < _tilemap.widthInTiles; i++)
-					_tilemap.setTile(i,_tilemap.heightInTiles-1,int(FlxG.random()*5));
+					_tilemap.setTile(i, _tilemap.heightInTiles - 1, int(FlxG.random() * 5));
+				
+				changeLevel(1);
 			}
 		}
 		
@@ -76,6 +76,15 @@ package com.adamatomic.Mode
 		{
 			if(Core is Bullet)
 				_tilemap.setTile(X,Y,0);
+		}
+		private function changeLevel(Level:int):void {
+			
+			if (Level == 0){
+				_tilemap.loadMap(new TxtMap, ImgTiles, 8);
+			}else {
+				_tilemap.loadMap(new TxtMap2,ImgTiles,8); //This is an alternate tiny map
+			}
+				
 		}
 	}
 }

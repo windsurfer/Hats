@@ -124,7 +124,7 @@ package org.flixel
 			
 			useDefaultHotKeys = true;
 			
-			showLogo = true;
+			showLogo = false;
 			_f = null;
 			_fc = 0xffffffff;
 			_fSound = SndFlixel;

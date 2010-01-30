@@ -33,7 +33,7 @@ package com.adamatomic.Mode
 			
 			//add player and set up camera
 			this.add(_player);
-			FlxG.follow(_player,2.5);
+			FlxG.follow(_player,12.5);
 			FlxG.followAdjust(0.5,0.0);
 			_tilemap.follow();	//Set the followBounds to the map dimensions
 			

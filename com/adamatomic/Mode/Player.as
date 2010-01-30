@@ -72,7 +72,7 @@ package com.adamatomic.Mode
 			{
 				_restart += FlxG.elapsed;
 				if(_restart > 2)
-					FlxG.switchState(PlayState);
+					FlxG.switchState(PlayStateTiles);
 				return;
 			}
 			
@@ -134,7 +134,7 @@ package com.adamatomic.Mode
 				{
 					bY += height - 4;
 					bYVel = _bulletVel;
-					velocity.y -= 36;
+					velocity.y -= 96;
 				}
 				else if(facing == RIGHT)
 				{

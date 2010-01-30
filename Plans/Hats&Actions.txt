@@ -1,0 +1,30 @@
+Basic actions
+--------------
+Move
+Jump
+"Action"
+Inventory on number keys 1-5
+
+Hats
+--------------
+Camo (default)
+	Invisibility & can't move.
+	ONLY works if velocity is zero.
+Bunny Hat
+	Run fast and jump high
+	Limited time
+Spanish Horn
+	Shoot a distraction noise.
+	Enemies immediately pursue the noise,
+	even if they are pursuing the player.
+	5-second time limit
+	Only one at a time.
+	Cooldown: 12 seconds
+Pipe
+	Throw a smoke bomb
+	10-second time limit
+	Also, only one exists at a time.
+	Without impact, detonates after 5 tiles
+	This MIGHT need a cooldown to be not broken.
+Spring Hat
+	Turn upside down and BOUNCE!

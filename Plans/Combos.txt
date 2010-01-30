@@ -1,0 +1,16 @@
+Combinations
+-----------------
+Sound + Smoke
+	Enemies can't see the pit.
+	They "pursue" the sound and fall in.
+
+Bunny + Spring
+	Get a running start w/ Bunny
+	Quickly switch to Spring and JUMP!
+	Horizontal interia is conserved/transferred
+
+Sound + Camo
+	Shoot sound to one side
+	Camo as the enemies walk through you
+	Repeat and spam camo as necessary
+	Make your way to other side

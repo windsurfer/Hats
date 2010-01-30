@@ -4,8 +4,8 @@ package com.adamatomic.Mode
 
 	public class Player extends FlxSprite
 	{
-		[Embed(source="../../../data/spaceman.png")] private var ImgSpaceman:Class;
-		[Embed(source="../../../data/gibs.png")] private var ImgGibs:Class;
+		[Embed(source="../../../data/wizard.png")] private var ImgSpaceman:Class;
+		[Embed(source="../../../data/wizard_gibs.png")] private var ImgGibs:Class;
 		[Embed(source="../../../data/jump.mp3")] private var SndJump:Class;
 		[Embed(source="../../../data/land.mp3")] private var SndLand:Class;
 		[Embed(source="../../../data/asplode.mp3")] private var SndExplode:Class;
@@ -25,20 +25,20 @@ package com.adamatomic.Mode
 		public function Player(X:int,Y:int,Bullets:Array)
 		{
 			super(X,Y);
-			loadGraphic(ImgSpaceman,true,true,8);
+			loadGraphic(ImgSpaceman,true,true,16,32);
 			_restart = 0;
 			
 			//bounding box tweaks
-			width = 6;
-			height = 7;
+			width = 15;
+			height = 31;
 			offset.x = 1;
 			offset.y = 1;
 			
 			//basic player physics
-			var runSpeed:uint = 60;
+			var runSpeed:uint = 80;
 			drag.x = runSpeed*16;
 			acceleration.y = 420;
-			_jumpPower = 125;
+			_jumpPower = 185;
 			maxVelocity.x = runSpeed;
 			maxVelocity.y = 200;
 			
@@ -46,22 +46,18 @@ package com.adamatomic.Mode
 			addAnimation("idle", [0]);
 			addAnimation("run", [1, 2, 3, 0], 12);
 			addAnimation("jump", [4]);
-			addAnimation("idle_up", [5]);
-			addAnimation("run_up", [6, 7, 8, 5], 12);
-			addAnimation("jump_up", [9]);
-			addAnimation("jump_down", [10]);
 			
 			//bullet stuff
 			_bullets = Bullets;
 			_curBullet = 0;
-			_bulletVel = 360;
+			_bulletVel = 160;
 			
 			//Gibs emitted upon death
 			_gibs = new FlxEmitter(0,0,-1.5);
 			_gibs.setXVelocity(-150,150);
 			_gibs.setYVelocity(-200,0);
 			_gibs.setRotation(-720,-720);
-			_gibs.createSprites(ImgGibs);
+			_gibs.createSprites(ImgGibs, 5);
 			FlxG.state.add(_gibs);
 		}
 		
@@ -190,7 +186,7 @@ package com.adamatomic.Mode
 				return;
 			FlxG.play(SndExplode);
 			FlxG.play(SndExplode2);
-			super.kill();
+			
 			flicker(-1);
 			exists = true;
 			visible = false;
@@ -199,6 +195,7 @@ package com.adamatomic.Mode
 			_gibs.x = x + width/2;
 			_gibs.y = y + height/2;
 			_gibs.restart();
+			super.kill();
 		}
 	}
 }

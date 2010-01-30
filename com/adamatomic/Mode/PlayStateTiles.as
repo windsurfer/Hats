@@ -17,35 +17,26 @@ package com.adamatomic.Mode
 		function PlayStateTiles():void
 		{
 			super();
-			//create tilemap
-			_tilemap = new FlxTilemap();
-			_tilemap.collideIndex = 3;
-			changeLevel(0);
+
 			
 			//create player and bullets
 			_bullets = new Array();
-			_player = new Player(_tilemap.width/2-4,_tilemap.height/2-4,_bullets);
+			_player = new Player(0,0,_bullets);
 			_player.addAnimationCallback(animationCallbackTest);
 			for(var i:uint = 0; i < 8; i++)
-				_bullets.push(this.add(new Bullet()));
+				_bullets.push(new Bullet());
 			
 			//add player and set up camera
-			this.add(_player);
 			FlxG.follow(_player,2.5);
-			FlxG.followAdjust(0.5,0.0);
+			FlxG.followAdjust(0.5, 0.0);
+			
+			//create tilemap
+
+			changeLevel(0);
+			
 			_tilemap.follow();	//Set the followBounds to the map dimensions
-			
-			//Uncomment these lines if you want to center TxtMap2
-			//var fx:uint = _tilemap.width/2 - FlxG.width/2;
-			//var fy:uint = _tilemap.height/2 - FlxG.height/2;
-			//FlxG.followBounds(fx,fy,fx,fy);
-			
+						
 			//add tilemap last so it is in front, looks neat
-			this.add(_tilemap);
-			_tilemap.setCallback(3,dig,8);
-			
-			//fade in
-			FlxG.flash(0xff131c1b);
 			
 			//The music in this mode is positional - it fades out toward the edges of the level
 			var s:FlxSound = FlxG.play(SndMode,1,true);
@@ -60,10 +51,8 @@ package com.adamatomic.Mode
 			
 			if(FlxG.keys.justPressed("M"))
 			{
-				for(var i:uint = 0; i < _tilemap.widthInTiles; i++)
-					_tilemap.setTile(i, _tilemap.heightInTiles - 1, int(FlxG.random() * 5));
-				
 				changeLevel(1);
+				
 			}
 		}
 		
@@ -77,14 +66,42 @@ package com.adamatomic.Mode
 			if(Core is Bullet)
 				_tilemap.setTile(X,Y,0);
 		}
-		private function changeLevel(Level:int):void {
+		private function changeLevel(Level:int):void {	
+			this._layer.destroy();
+			
+			_tilemap = new FlxTilemap();
+			_tilemap.collideIndex = 3;			
 			
 			if (Level == 0){
 				_tilemap.loadMap(new TxtMap, ImgTiles, 8);
 			}else {
 				_tilemap.loadMap(new TxtMap2,ImgTiles,8); //This is an alternate tiny map
 			}
-				
+			
+			_player.x = _tilemap.width / 2;
+			_player.y = _tilemap.height / 2;
+			
+			_tilemap.setCallback(3,dig,8);
+			FlxG.flash(0xff131c1b);
+			
+			
+			//center Map
+			var fx:uint = _tilemap.width/2 - FlxG.width/2;
+			var fy:uint = _tilemap.height/2 - FlxG.height/2;
+			FlxG.followBounds(fx,fy,fx,fy);
+			_tilemap.follow();
+			_tilemap.setCallback(3,dig,8);
+			
+			addObjects();
+
+		}
+		
+		private function addObjects():void {
+			for(var i:uint = 0; i < 8; i++)
+				this.add(_bullets[i]);
+			
+			this.add(_player);
+			this.add(_tilemap);
 		}
 	}
 }

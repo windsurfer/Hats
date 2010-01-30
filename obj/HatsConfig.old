@@ -4,12 +4,12 @@
 <flex-config>
   <compiler>
     <source-path append="true">
-      <path-element>C:\Documents and Settings\Administrator\Hats</path-element>
+      <path-element>D:\Hats</path-element>
       <path-element>D:\Flashdevelop\Library\AS3\classes</path-element>
     </source-path>
   </compiler>
   <file-specs>
-    <path-element>C:\Documents and Settings\Administrator\Hats\Mode.as</path-element>
+    <path-element>D:\Hats\Mode.as</path-element>
   </file-specs>
   <default-background-color>#000000</default-background-color>
   <default-frame-rate>30</default-frame-rate>

@@ -6,7 +6,7 @@ package com.adamatomic.Mode
 
 	public class SmallSoldier extends FlxSprite
 	{
-		[Embed(source="../../../data/bot.png")] private var ImgSoldier:Class;
+		[Embed(source="../../../data/enemy_normal.png")] private var ImgSoldier:Class;
 		[Embed(source="../../../data/gibs.png")] private var ImgGibs:Class;
 		[Embed(source="../../../data/asplode.mp3")] private var SndExplode:Class;
 		[Embed(source="../../../data/hit.mp3")] private var SndHit:Class;
@@ -23,7 +23,7 @@ package com.adamatomic.Mode
 		public function SmallSoldier(xPos:int,yPos:int,ThePlayer:Player, TheWorld:FlxTilemap)
 		{
 			super(xPos,yPos);
-			loadGraphic(ImgSoldier,true, true);
+			loadGraphic(ImgSoldier,true, true,16,32);
 			_player = ThePlayer;
 			_world = TheWorld;
 			
@@ -43,19 +43,21 @@ package com.adamatomic.Mode
 			_feeler = new FlxSprite();
 			
 			addAnimation("idle", [0]);
-			addAnimation("dead", [1, 2, 3, 4, 5], 15, false);
+			addAnimation("walking", [1, 2, 3, 0], 12, true);
 
-			//Gibs emitted upon death
-			_gibs = new FlxEmitter(0,0,-1.5);
-			_gibs.setXVelocity(-150,150);
-			_gibs.setYVelocity(-200,0);
-			_gibs.setRotation(-720,-720);
-			_gibs.createSprites(ImgGibs,20);
-			FlxG.state.add(_gibs);
-			
 			
 			
 			reset(x,y);
+		}
+		
+		override public function hitWall(Contact:FlxCore = null):Boolean
+		{
+			if (_facing == RIGHT) {
+				_facing = LEFT;
+			}else {
+				_facing = RIGHT;
+			}
+			return super.hitWall();
 		}
 		
 		override public function update():void
@@ -84,9 +86,11 @@ package com.adamatomic.Mode
 				
 				if (!_world.collide(_feeler)) {
 					acceleration.x = 0;
+					play("idle");
 					_timer += FlxG.elapsed;
 				}else {
 					_timer = 0;
+					play("walking");
 				}
 				if (_timer > 2) {
 					_timer = 0;
@@ -112,6 +116,17 @@ package com.adamatomic.Mode
 			if(dead)
 				return;
 			
+			//Gibs emitted upon death
+			_gibs = new FlxEmitter(0,0,-1.5);
+			_gibs.setXVelocity(-150,150);
+			_gibs.setYVelocity(-200,0);
+			_gibs.setRotation(-720,-720);
+			_gibs.createSprites(ImgGibs,20);
+			FlxG.state.add(_gibs);
+			
+			_gibs.x = this.x + width/2;
+			_gibs.y = this.y + height/2;
+			_gibs.restart();
 			super.kill();
 		}
 		

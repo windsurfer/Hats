@@ -5,7 +5,7 @@ package com.adamatomic.Mode
 	public class PlayStateTiles extends FlxState
 	{
 		[Embed(source="../../../data/mode.mp3")] private var SndMode:Class;
-		[Embed(source="../../../data/map.txt",mimeType="application/octet-stream")] private var TxtMap:Class;
+		[Embed(source="../../../data/Marps/CamoIntro.txt",mimeType="application/octet-stream")] private var TxtMap:Class;
 		[Embed(source = "../../../data/map2.txt", mimeType = "application/octet-stream")] private var TxtMap2:Class;
 		[Embed(source = "../../../data/map3.txt", mimeType = "application/octet-stream")] private var TxtMap3:Class;
 		[Embed(source = "../../../data/map4.txt", mimeType = "application/octet-stream")] private var TxtMap4:Class;
@@ -26,7 +26,6 @@ package com.adamatomic.Mode
 			_bullets = new Array();
 			_sm_soldiers = new Array();
 			_player = new Player(0,0,_bullets);
-			_player.addAnimationCallback(animationCallbackTest);
 			for(var i:uint = 0; i < 8; i++)
 				_bullets.push(new Bullet());
 			
@@ -36,11 +35,7 @@ package com.adamatomic.Mode
 			
 			//create tilemap
 
-			changeLevel(3);
-			
-			_tilemap.follow();	//Set the followBounds to the map dimensions
-						
-			//add tilemap last so it is in front, looks neat
+			changeLevel(0);
 			
 			//The music in this mode is positional - it fades out toward the edges of the level
 			var s:FlxSound = FlxG.play(SndMode,1,true);
@@ -59,7 +54,6 @@ package com.adamatomic.Mode
 					_player.kill();
 				}
 			}
-
 			
 			if(FlxG.keys.justPressed("M"))
 			{
@@ -73,17 +67,12 @@ package com.adamatomic.Mode
 			FlxG.log("ANIMATION NAME: "+Name+", FRAME: "+Frame+", FRAME INDEX: "+FrameIndex);
 		}
 		
-		private function dig(Core:FlxCore,X:uint,Y:uint,Tile:uint):void
-		{
-			if(Core is Bullet)
-				_tilemap.setTile(X,Y,0);
-		}
 		private function changeLevel(Level:int):void {	
 			this._layer.destroy();
 			//_sm_soldiers.destroy();
 			
 			_tilemap = new FlxTilemap();
-			_tilemap.collideIndex = 3;			
+			_tilemap.collideIndex = 5;			
 			
 			var MapData:String;
 			if (Level == 0){
@@ -97,7 +86,7 @@ package com.adamatomic.Mode
 			}else {
 				trace("That map doesn't exist");
 			}
-			_tilemap.loadMap(MapData, ImgTiles, 16); //This is an alternate tiny map
+			_tilemap.loadMap(MapData, ImgTiles, 16); 
 			
 			
 			var player_spawn_x:int = -1;
@@ -141,7 +130,6 @@ package com.adamatomic.Mode
 				_player.y = player_spawn_y;
 			}
 			
-			_tilemap.setCallback(3,dig,8);
 			FlxG.flash(0xff131c1b);
 			
 			
@@ -150,7 +138,6 @@ package com.adamatomic.Mode
 			var fy:uint = _tilemap.height/2 - FlxG.height/2;
 			FlxG.followBounds(fx,fy,fx,fy);
 			_tilemap.follow();
-			_tilemap.setCallback(3,dig,8);
 			
 			addObjects();
 
@@ -164,6 +151,7 @@ package com.adamatomic.Mode
 			}
 							
 			this.add(_player);
+			this.add(_player._gibs);
 			this.add(_tilemap);
 		}
 	}

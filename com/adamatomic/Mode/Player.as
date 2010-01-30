@@ -20,7 +20,7 @@ package com.adamatomic.Mode
 		private var _up:Boolean;
 		private var _down:Boolean;
 		private var _restart:Number;
-		private var _gibs:FlxEmitter;
+		public var _gibs:FlxEmitter;
 		
 		public function Player(X:int,Y:int,Bullets:Array)
 		{
@@ -29,9 +29,9 @@ package com.adamatomic.Mode
 			_restart = 0;
 			
 			//bounding box tweaks
-			width = 15;
+			width = 13;
 			height = 31;
-			offset.x = 1;
+			offset.x = 2;
 			offset.y = 1;
 			
 			//basic player physics
@@ -52,13 +52,6 @@ package com.adamatomic.Mode
 			_curBullet = 0;
 			_bulletVel = 160;
 			
-			//Gibs emitted upon death
-			_gibs = new FlxEmitter(0,0,-1.5);
-			_gibs.setXVelocity(-150,150);
-			_gibs.setYVelocity(-200,0);
-			_gibs.setRotation(-720,-720);
-			_gibs.createSprites(ImgGibs, 5);
-			FlxG.state.add(_gibs);
 		}
 		
 		override public function update():void
@@ -99,19 +92,15 @@ package com.adamatomic.Mode
 			//ANIMATION
 			if(velocity.y != 0)
 			{
-				if(_up) play("jump_up");
-				else if(_down) play("jump_down");
-				else play("jump");
+				play("jump");
 			}
 			else if(velocity.x == 0)
 			{
-				if(_up) play("idle_up");
-				else play("idle");
+				play("idle");
 			}
 			else
 			{
-				if(_up) play("run_up");
-				else play("run");
+				play("run");
 			}
 			
 			//SHOOTING
@@ -187,14 +176,24 @@ package com.adamatomic.Mode
 			FlxG.play(SndExplode);
 			FlxG.play(SndExplode2);
 			
+			//Gibs emitted upon death
+			_gibs = new FlxEmitter(0,0,-1.5);
+			_gibs.setXVelocity(-150,150);
+			_gibs.setYVelocity(-200,0);
+			_gibs.setRotation(-720,-720);
+			_gibs.createSprites(ImgGibs,200);
+			FlxG.state.add(_gibs);
+			
+			_gibs.x = this.x + width/2;
+			_gibs.y = this.y + height/2;
+			_gibs.restart();
+			
 			flicker(-1);
 			exists = true;
 			visible = false;
 			FlxG.quake(0.005,0.35);
-			FlxG.flash(0xffd8eba2,0.35);
-			_gibs.x = x + width/2;
-			_gibs.y = y + height/2;
-			_gibs.restart();
+			FlxG.flash(0xff7777ff,0.35);
+
 			super.kill();
 		}
 	}

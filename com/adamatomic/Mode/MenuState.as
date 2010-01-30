@@ -36,13 +36,13 @@ package com.adamatomic.Mode
 			_e.loadSprites(a);
 			add(_e);
 				
-			_t1 = new FlxText(FlxG.width,FlxG.height/3,80,"mo");
+			_t1 = new FlxText(FlxG.width,FlxG.height/3,80,"ha");
 			_t1.size = 32;
-			_t1.color = 0x3a5c39;
+			_t1.color = 0xd34466;
 			_t1.antialiasing = true;
 			add(_t1);
 
-			_t2 = new FlxText(-60,FlxG.height/3,80,"de");
+			_t2 = new FlxText(-60,FlxG.height/3,80,"ts");
 			_t2.size = _t1.size;
 			_t2.color = _t1.color;
 			_t2.antialiasing = _t1.antialiasing;
@@ -89,17 +89,17 @@ package com.adamatomic.Mode
 				FlxG.play(SndHit);
 				FlxG.flash(0xffd8eba2,0.5);
 				FlxG.quake(0.035,0.5);
-				_t1.color = 0xd8eba2;
-				_t2.color = 0xd8eba2;
+				_t1.color = 0xd37799;
+				_t2.color = 0xd37799;
 				_e.restart();
-				_t1.angle = FlxG.random()*40-20;
-				_t2.angle = FlxG.random()*40-20;
+				_t1.angle = 0;
+				_t2.angle = 0;
 				
 				var t1:FlxText;
 				var t2:FlxText;
 				var b:FlxButton;
 				
-				t1 = new FlxText(t1m,FlxG.height/3+39,110,"by Adam Atomic")
+				t1 = new FlxText(0,FlxG.height/3+39,320,"by Adam, ChrisA, ChrisB, Tom, and Sarah")
 				t1.alignment = "center";
 				t1.color = 0x3a5c39;
 				add(t1);

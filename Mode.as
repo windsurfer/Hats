@@ -10,7 +10,6 @@ package {
 		
 		public function Mode():void
 		{
-			this.showLogo = false;
 			super(320,240,MenuState, 2);
 			FlxState.bgColor = 0xff131c1b;
 			setLogoFX(0xff729954);

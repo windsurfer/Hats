@@ -1,3 +1,4 @@
 *.swf
 .*
 *.as3proj
+obj/*

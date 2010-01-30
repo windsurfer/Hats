@@ -45,6 +45,6 @@ package com.adamatomic.Mode
 			}
 		}
 		
-		private function onPlay():void { FlxG.switchState(PlayState); }
+		private function onPlay():void { FlxG.switchState(PlayStateTiles); }
 	}
 }

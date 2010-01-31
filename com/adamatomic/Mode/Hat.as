@@ -76,7 +76,7 @@ package com.adamatomic.Mode
 				_player.please_jump_high();
 			}else if (whatami == SOUND_HAT) {
 				// shoot a noise thing
-				
+				_player.please_shoot_sound();
 			}else if (whatami == SMOKE_HAT) {
 				// shoot a smoke bomb
 				_player.please_shoot_smoke();

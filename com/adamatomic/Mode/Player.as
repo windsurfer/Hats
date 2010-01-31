@@ -110,7 +110,10 @@ package com.adamatomic.Mode
 		}
 		
 		public function please_shoot_sound():void {
-		 	
+		 	if (_shoot_timer<=0){
+				_sound_bomb.shoot(x, y, (facing == RIGHT ? 200 : -200));
+				_shoot_timer = 1;
+			}
 		}
 		public function please_shoot_smoke():void {
 			if (_shoot_timer<=0){

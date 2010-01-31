@@ -33,6 +33,9 @@ package com.adamatomic.Mode
 		private var _smoke_bomb:SmokeBomb;
 		private var _sound_bomb:SoundBomb;
 		
+		private var _finish_door:FlxSprite;
+		private var _cur_level:Number;
+		
 		function PlayStateTiles():void
 		{
 			super();
@@ -46,15 +49,20 @@ package com.adamatomic.Mode
 			for(var i:uint = 0; i < 8; i++)
 				_bullets.push(new Bullet());
 			
+			
+			_finish_door = new FlxSprite(0, 0);
+			_cur_level = 0;
+			
+			
 			_sound_bomb = new SoundBomb();
 			_smoke_bomb = new SmokeBomb();
 			//add player and set up camera
 			FlxG.follow(_player,2.5);
 			FlxG.followAdjust(0.5, 0.0);
 			
-			//create tilemap
+			
 
-			changeLevel(0);
+			changeLevel(_cur_level);
 			
 			//The music in this mode is positional - it fades out toward the edges of the level
 			var s:FlxSound = FlxG.play(SndMode,1,true);
@@ -68,7 +76,7 @@ package com.adamatomic.Mode
 			{
 				_restart += FlxG.elapsed;
 				if(_restart > 2){
-					changeLevel(0);
+					changeProperLevel();
 					_restart = 0; 
 				}
 					
@@ -80,6 +88,8 @@ package com.adamatomic.Mode
 			_tilemap.collide(_player);
 			_tilemap.collideArray(_sm_soldiers);
 			_tilemap.collide(_smoke_bomb);
+			_tilemap.collide(_sound_bomb);
+			
 			
 			
 			for each (var soldier:SmallSoldier in _sm_soldiers){
@@ -115,16 +125,29 @@ package com.adamatomic.Mode
 			}
 			
 			
-			if(FlxG.keys.justPressed("M"))
-			{
-				changeLevel(1);
-				
+			if (_sound_bomb.sound_alarm) {
+				_sound_bomb.sound_alarm = false;
+				for each ( soldier in _sm_soldiers) {
+					soldier.alarm(_sound_bomb.x, _sound_bomb.y);
+				}
 			}
+			
+			if (_finish_door.collide(_player)) {
+				_cur_level++;
+				FlxG.fade(0xff000000, 2, changeProperLevel, true);
+				_player.active = false;
+			}
+			
 		}
 		
 		private function animationCallbackTest(Name:String, Frame:uint, FrameIndex:uint):void
 		{
 			FlxG.log("ANIMATION NAME: "+Name+", FRAME: "+Frame+", FRAME INDEX: "+FrameIndex);
+		}
+		
+		private function changeProperLevel():void {
+			FlxG.fade(0x00000000, 1, null, true);
+			changeLevel(_cur_level);
 		}
 		
 		private function changeLevel(Level:int):void {
@@ -200,6 +223,8 @@ package com.adamatomic.Mode
 							break;	
 						case 22:
 							// EXIT
+							_finish_door.x = x_pos;
+							_finish_door.y = y_pos;
 							break;
 						case 23:
 							// SPAWN
@@ -258,6 +283,8 @@ package com.adamatomic.Mode
 			this.add(_player._hat);
 			this.add(_tilemap);
 			this.add(_smoke_bomb);
+			this.add(_sound_bomb);
+			this.add(_finish_door);
 		}
 		
 		private function killObjects():void {

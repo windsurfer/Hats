@@ -5,10 +5,21 @@ package com.adamatomic.Mode
 	public class PlayStateTiles extends FlxState
 	{
 		[Embed(source="../../../data/mode.mp3")] private var SndMode:Class;
-		[Embed(source="../../../data/Marps/BunnyIntro.txt",mimeType="application/octet-stream")] private var TxtMap:Class;
+		[Embed(source="../../../data/Marps/CamoIntro.txt",mimeType="application/octet-stream")] private var TxtMap:Class;
 		[Embed(source = "../../../data/Marps/HornIntro.txt", mimeType = "application/octet-stream")] private var TxtMap2:Class;
-		[Embed(source = "../../../data/map3.txt", mimeType = "application/octet-stream")] private var TxtMap3:Class;
-		[Embed(source = "../../../data/map4.txt", mimeType = "application/octet-stream")] private var TxtMap4:Class;
+		[Embed(source = "../../../data/Marps/SpringIntro.txt", mimeType = "application/octet-stream")] private var TxtMap3:Class;
+		[Embed(source = "../../../data/Marps/BunnyIntro.txt", mimeType = "application/octet-stream")] private var TxtMap4:Class;
+		[Embed(source = "../../../data/Marps/SmokeIntro.txt", mimeType = "application/octet-stream")] private var TxtMap5:Class;
+		
+		[Embed(source = "../../../data/Marps/Smoke+Sound.txt", mimeType = "application/octet-stream")] private var TxtMap6:Class;
+		[Embed(source = "../../../data/Marps/Sound+Camo.txt", mimeType = "application/octet-stream")] private var TxtMap7:Class;
+		[Embed(source = "../../../data/Marps/SuperJump.txt", mimeType = "application/octet-stream")] private var TxtMap8:Class;
+		[Embed(source = "../../../data/Marps/Sound_Camo_Smoke.txt", mimeType = "application/octet-stream")] private var TxtMap9:Class;
+		[Embed(source = "../../../data/Marps/InsiviBlocks.txt", mimeType = "application/octet-stream")] private var TxtMap10:Class;
+		[Embed(source = "../../../data/Marps/Smoke_Sound_Bunny.txt", mimeType = "application/octet-stream")] private var TxtMap11:Class;
+		[Embed(source = "../../../data/Marps/MultiRooms.txt", mimeType = "application/octet-stream")] private var TxtMap12:Class;
+		[Embed(source = "../../../data/Marps/Final_Countdown.txt", mimeType = "application/octet-stream")] private var TxtMap13:Class;
+		
 		[Embed(source="../../../data/tiles_all.png")] private var ImgTiles:Class;
 		
 		//major game objects
@@ -133,6 +144,24 @@ package com.adamatomic.Mode
 				MapData = new TxtMap3;
 			}else if (Level == 3) {
 				MapData = new TxtMap4;
+			}else if (Level == 4) {
+				MapData = new TxtMap5;
+			}else if (Level == 5) {
+				MapData = new TxtMap6;
+			}else if (Level == 6) {
+				MapData = new TxtMap7;
+			}else if (Level == 7) {
+				MapData = new TxtMap8;
+			}else if (Level == 8) {
+				MapData = new TxtMap9;
+			}else if (Level == 9) {
+				MapData = new TxtMap10;
+			}else if (Level == 10) {
+				MapData = new TxtMap11;
+			}else if (Level == 11) {
+				MapData = new TxtMap12;
+			}else if (Level == 12) {
+				MapData = new TxtMap13;
 			}else {
 				trace("That map doesn't exist");
 			}

@@ -12,7 +12,9 @@
 	public class Hat extends FlxSprite
 	{
 		
-		[Embed(source="../../../data/hat1.png")] private var ImgCamo:Class;
+		[Embed(source="../../../data/Camo_Hat.png")] private var ImgCamo:Class;
+		[Embed(source = "../../../data/Bunny_Hat.png")] private var ImgBunny:Class;
+		[Embed(source = "../../../data/Spring_Hat.png")] private var ImgSpring:Class;
 		
 		public static const NULL_HAT:String = "NULL_HAT";
 		public static const BUNNY_HAT:String = "BUNNY_HAT";
@@ -25,6 +27,14 @@
 		{
 			if (WhichHat == CAMO_HAT){
 				loadGraphic(ImgCamo, true, true, 28, 23);
+				addAnimation("idle", [0]);
+				addAnimation("move", [1, 0], 6);
+			}else if (WhichHat == BUNNY_HAT){
+				loadGraphic(ImgBunny, true, true, 28, 23);
+				addAnimation("idle", [0]);
+				addAnimation("move", [1, 0], 6);
+			}else if (WhichHat == SPRING_HAT){
+				loadGraphic(ImgSpring, true, true, 28, 23);
 				addAnimation("idle", [0]);
 				addAnimation("move", [1, 0], 6);
 			}else {

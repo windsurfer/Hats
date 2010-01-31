@@ -66,7 +66,7 @@ package com.adamatomic.Mode
 			_tilemap.collideArray(_sm_soldiers);
 			
 			for each (var soldier:SmallSoldier in _sm_soldiers){
-				if (soldier.overlaps(_player)) {
+				if (soldier.overlaps(_player) && !soldier.dead) {
 					_player.kill();
 				}
 			}

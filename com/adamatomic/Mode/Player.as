@@ -33,7 +33,7 @@ package com.adamatomic.Mode
 			super(X,Y);
 			loadGraphic(ImgSpaceman,true,true,16,32);
 			
-			_hats_avail = new Array(Hat.CAMO_HAT); // start without any
+			_hats_avail = new Array(Hat.SPRING_HAT); // start without any
 			_cur_hat = Hat.NULL_HAT;
 			_hat = new Hat(_cur_hat);
 			

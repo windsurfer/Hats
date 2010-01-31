@@ -44,6 +44,10 @@ package org.flixel
 		 */
 		public var drag:Number;
 		/**
+		 * Opacity of particles emitted
+		 */
+		public var alpha:Number;
+		/**
 		 * How long to wait between particle emissions.
 		 * Set this to a negative number to launch all particles at once.
 		 * Negative value defines the lifespan of the particle.
@@ -81,7 +85,7 @@ package org.flixel
 			y = Y;
 			width = 0;
 			height = 0;
-			
+			alpha = 1;
 			minVelocity = new Point(-100,-100);
 			maxVelocity = new Point(100,100);
 			minRotation = -360;
@@ -134,12 +138,16 @@ package org.flixel
 				if(Multiple)
 				{
 					var s:FlxSprite = new FlxSprite();
+					s.alpha = this.alpha;
 					s.loadGraphic(Graphics,true);
 					s.randomFrame();
 					_sprites.push(s);
 				}
-				else
-					_sprites.push(new FlxSprite(0,0,Graphics));
+				else {
+					var d:FlxSprite = new FlxSprite(0, 0, Graphics);
+					d.alpha = this.alpha;
+					_sprites.push(d);
+				}
 			}
 			sl = _sprites.length;
 			for(i = 0; i < sl; i++)

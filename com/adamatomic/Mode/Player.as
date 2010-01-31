@@ -6,7 +6,7 @@ package com.adamatomic.Mode
 	{
 		[Embed(source="../../../data/wizard.png")] private var ImgSpaceman:Class;
 		[Embed(source = "../../../data/wizard_gibs.png")] private var ImgGibs:Class;
-		[Embed(source="../../../data/smoke_gibs.png")] private var ImgSmoke:Class;
+		[Embed(source="../../../data/smoke_gibs.png")] public static var ImgSmoke:Class;
 		
 		
 		[Embed(source="../../../data/jump.mp3")] private var SndJump:Class;
@@ -25,6 +25,10 @@ package com.adamatomic.Mode
 		private var _down:Boolean;
 		public var _gibs:FlxEmitter;
 		
+		
+		private var _smoke_bomb:SmokeBomb;
+		private var _sound_bomb:SoundBomb;
+		
 
 		
 		public var _hats_avail:Array; // strings
@@ -32,13 +36,18 @@ package com.adamatomic.Mode
 		public var _hat:Hat;
 		public var _invisible:Boolean;
 		
-		public function Player(X:int,Y:int,Bullets:Array)
+		private const runSpeed:uint = 80;
+		
+		public function Player(X:int,Y:int, Smoke:SmokeBomb, Sound:SoundBomb)
 		{
 			super(X,Y);
 			loadGraphic(ImgSpaceman,true,true,16,32);
 			
-			_hats_avail = new Array(Hat.SPRING_HAT, Hat.CAMO_HAT, Hat.BUNNY_HAT); // start without any
-			_cur_hat = Hat.NULL_HAT;
+			_sound_bomb = Sound;
+			_smoke_bomb = Smoke;
+			
+			_hats_avail = new Array(Hat.SPRING_HAT, Hat.CAMO_HAT, Hat.BUNNY_HAT, Hat.SMOKE_HAT); // start without any
+			_cur_hat = Hat.CAMO_HAT;
 			_hat = new Hat(_cur_hat, this);
 			
 			_invisible = false;
@@ -51,8 +60,7 @@ package com.adamatomic.Mode
 			offset.y = 1;
 			
 			//basic player physics
-			var runSpeed:uint = 80;
-			drag.x = runSpeed*16;
+			drag.x = runSpeed * 16;
 			acceleration.y = 420;
 			_jumpPower = 185;
 			maxVelocity.x = runSpeed;
@@ -62,11 +70,6 @@ package com.adamatomic.Mode
 			addAnimation("idle", [0]);
 			addAnimation("run", [1, 2, 3, 0], 12);
 			addAnimation("jump", [4]);
-			
-			//bullet stuff
-			_bullets = Bullets;
-			_curBullet = 0;
-			_bulletVel = 160;
 			
 		}
 		
@@ -129,13 +132,6 @@ package com.adamatomic.Mode
 				FlxG.play(SndJump);
 			}
 			
-			//AIMING
-			_up = false;
-			_down = false;
-			if(FlxG.keys.UP) _up = true;
-			else if(FlxG.keys.DOWN && velocity.y) _down = true;
-			
-			
 			// CHANGE HAT
 			if (FlxG.keys.justReleased("Z")) {
 				if (_hats_avail.length > 0) {
@@ -163,9 +159,18 @@ package com.adamatomic.Mode
 			}
 			
 			
+			// conditional hat stuff
+			if (_cur_hat == Hat.BUNNY_HAT) {
+				maxVelocity.x = runSpeed*3;
+			}else {
+				maxVelocity.x = runSpeed;
+			}
+			
 			
 			if (_cur_hat == Hat.CAMO_HAT && velocity.x == 0 && velocity.y == 0) {
 				//go_invisible();
+				
+				
 			}else if (this.alpha != 1) {
 				_invisible = false;
 				this.alpha = 1;

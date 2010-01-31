@@ -19,6 +19,8 @@ package com.adamatomic.Mode
 		private var _player:Player;
 		private var _sm_soldiers:Array;
 		private var _restart:Number;
+		private var _smoke_bomb:SmokeBomb;
+		private var _sound_bomb:SoundBomb;
 		
 		function PlayStateTiles():void
 		{
@@ -29,10 +31,12 @@ package com.adamatomic.Mode
 			_spikes = new Array();
 			_bullets = new Array();
 			_sm_soldiers = new Array();
-			_player = new Player(0,0,_bullets);
+			_player = new Player(0,0, _smoke_bomb, _sound_bomb);
 			for(var i:uint = 0; i < 8; i++)
 				_bullets.push(new Bullet());
 			
+			_sound_bomb = new SoundBomb();
+			_smoke_bomb = new SmokeBomb();
 			//add player and set up camera
 			FlxG.follow(_player,2.5);
 			FlxG.followAdjust(0.5, 0.0);
@@ -209,7 +213,7 @@ package com.adamatomic.Mode
 				this.add(soldier);
 			}
 			this.add(_player);
-			this.add(_player._gibs);
+			this.add(_player._hat);
 			this.add(_tilemap);
 		}
 		
@@ -220,7 +224,7 @@ package com.adamatomic.Mode
 			
 			this._layer.destroy();
 			
-			_player = new Player(0,0,_bullets);
+			_player = new Player(0,0, _smoke_bomb, _sound_bomb);
 			
 		}
 	}

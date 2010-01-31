@@ -15,6 +15,10 @@ package com.adamatomic.Mode
 		[Embed(source="../../../data/Camo_Hat.png")] private var ImgCamo:Class;
 		[Embed(source = "../../../data/Bunny_Hat.png")] private var ImgBunny:Class;
 		[Embed(source = "../../../data/Spring_Hat.png")] private var ImgSpring:Class;
+		[Embed(source = "../../../data/noiseHat.png")] private var ImgNoise:Class;
+		[Embed(source = "../../../data/smokeHat.png")] private var ImgSmoke:Class;
+		
+		
 		
 		public static const NULL_HAT:String = "NULL_HAT";
 		public static const BUNNY_HAT:String = "BUNNY_HAT";
@@ -31,6 +35,7 @@ package com.adamatomic.Mode
 		public function Hat(WhichHat:String, PlayerRef:Player)
 		{
 			_player = PlayerRef;
+			timer = 0;
 			
 			if (WhichHat == CAMO_HAT){
 				loadGraphic(ImgCamo, true, true, 28, 23);
@@ -42,6 +47,14 @@ package com.adamatomic.Mode
 				addAnimation("move", [1, 0], 6);
 			}else if (WhichHat == SPRING_HAT){
 				loadGraphic(ImgSpring, true, true, 28, 23);
+				addAnimation("idle", [0]);
+				addAnimation("move", [1, 0], 6);
+			}else if (WhichHat == SMOKE_HAT){
+				loadGraphic(ImgSmoke, true, true, 28, 23);
+				addAnimation("idle", [0]);
+				addAnimation("move", [1, 0], 6);
+			}else if (WhichHat == SOUND_HAT){
+				loadGraphic(ImgNoise, true, true, 28, 23);
 				addAnimation("idle", [0]);
 				addAnimation("move", [1, 0], 6);
 			}else {
@@ -61,8 +74,37 @@ package com.adamatomic.Mode
 			}else if (whatami == SPRING_HAT) {
 				// jump!
 				_player.please_jump_high();
+			}else if (whatami == SOUND_HAT) {
+				// shoot a noise thing
+				
+			}else if (whatami == SMOKE_HAT) {
+				// shoot a smoke bomb
+				
 			}else {
 				
+			}
+		}
+		
+		override public function update():void 
+		{
+			super.update();
+			if (whatami == SMOKE_HAT) {
+				timer += FlxG.elapsed;
+				if (timer >= 0.1) {
+					timer =0
+					var _gibs:FlxEmitter = new FlxEmitter(0,0,-1.5);
+					_gibs.setXVelocity(-10,10);
+					_gibs.setYVelocity( -50, -10);
+					_gibs.gravity = -100;
+					_gibs.setRotation( -180, -180);
+					_gibs.alpha = 0.5;
+					_gibs.createSprites(Player.ImgSmoke,1);
+					FlxG.state.add(_gibs);
+					_gibs.x = this.x + width/2;
+					_gibs.y = this.y + height / 2;
+					_gibs.restart();
+					
+				}
 			}
 		}
 		

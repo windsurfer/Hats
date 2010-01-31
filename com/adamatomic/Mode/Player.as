@@ -154,7 +154,7 @@ package com.adamatomic.Mode
 				facing = RIGHT;
 				acceleration.x += drag.x;
 			}
-			if(FlxG.keys.justPressed("X") && !velocity.y)
+			if ((FlxG.keys.justPressed("X") || FlxG.keys.justPressed("UP")) && !velocity.y)
 			{
 				velocity.y = -_jumpPower;
 				

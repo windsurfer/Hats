@@ -65,7 +65,9 @@ package com.adamatomic.Mode
 		
 		
 		private function placeHat():void {
-			_hat.x = this.x - this.width/2 + _hat.width/;
+			_hat.x = this.x - this.width / 2 + _hat.width / 2;
+			_hat.y = this.y - this.height / 2 + _hat.height / 2;
+			_hat.facing = this.facing;
 		}
 		
 		
@@ -74,7 +76,10 @@ package com.adamatomic.Mode
 		{
 
 			if(dead)
-			{ return;}
+			{ return; }
+		
+			placeHat();
+			
 			//MOVEMENT
 			acceleration.x = 0;
 			if(FlxG.keys.LEFT)
@@ -104,7 +109,8 @@ package com.adamatomic.Mode
 			if (FlxG.keys.justReleased("Z")) {
 				if (_hats_avail.length > 0) {
 					_cur_hat = _hats_avail[(_hats_avail.indexOf(_cur_hat) + 1) % _hats_avail.length];
-					
+					_hat.kill();
+					_hat.destroy();
 					_hat = new Hat(_cur_hat);
 				}
 			}
@@ -205,6 +211,9 @@ package com.adamatomic.Mode
 			super.kill();
 			FlxG.play(SndExplode);
 			FlxG.play(SndExplode2);
+			
+			_hat.kill();
+			_hat.destroy();
 			
 			//Gibs emitted upon death
 			_gibs = new FlxEmitter(0,0,-1.5);

@@ -34,12 +34,14 @@
 			FlxG.state.add(this);
 		}
 		
+		
 		public function animate():void {
 			play("move");
 		}
 		public function stop():void {
 			play("idle");
 		}
+		
 	}
 
 }

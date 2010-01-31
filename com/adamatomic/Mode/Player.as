@@ -9,7 +9,7 @@ package com.adamatomic.Mode
 		[Embed(source="../../../data/smoke_gibs.png")] public static var ImgSmoke:Class;
 		
 		
-		[Embed(source="../../../data/jump.mp3")] private var SndJump:Class;
+		[Embed(source="../../../data/Bounce2.mp3")] private var SndJump:Class;
 		[Embed(source="../../../data/land.mp3")] private var SndLand:Class;
 		[Embed(source="../../../data/asplode.mp3")] private var SndExplode:Class;
 		[Embed(source="../../../data/menu_hit_2.mp3")] private var SndExplode2:Class;

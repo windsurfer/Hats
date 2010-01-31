@@ -7,7 +7,7 @@ package com.adamatomic.Mode
 	public class SmallSoldier extends FlxSprite
 	{
 		[Embed(source="../../../data/enemy_normal.png")] private var ImgSoldier:Class;
-		[Embed(source="../../../data/gibs.png")] private var ImgGibs:Class;
+		[Embed(source="../../../data/enemy_normal_gibs.png")] private var ImgGibs:Class;
 		[Embed(source="../../../data/asplode.mp3")] private var SndExplode:Class;
 		[Embed(source="../../../data/hit.mp3")] private var SndHit:Class;
 		

@@ -36,6 +36,8 @@ package com.adamatomic.Mode
 		public var _hat:Hat;
 		public var _invisible:Boolean;
 		
+		public var _shoot_timer:Number;
+		
 		private const runSpeed:uint = 80;
 		
 		public function Player(X:int,Y:int, Smoke:SmokeBomb, Sound:SoundBomb)
@@ -51,7 +53,7 @@ package com.adamatomic.Mode
 			_hat = new Hat(_cur_hat, this);
 			
 			_invisible = false;
-			
+			_shoot_timer = 0;
 			
 			//bounding box tweaks
 			width = 13;
@@ -111,15 +113,21 @@ package com.adamatomic.Mode
 		 	
 		}
 		public function please_shoot_smoke():void {
-		 	_smoke_bomb.shoot(x, y, (facing == RIGHT ? 400 : -400));
+			if (_shoot_timer<=0){
+				_smoke_bomb.shoot(x, y, (facing == RIGHT ? 400 : -400));
+				_shoot_timer = 1;
+			}
 		}
 		
 		override public function update():void
 		{
-
+			
 			if(dead)
 			{ return; }
-		
+			
+			if (_shoot_timer > 0) {
+				_shoot_timer -= FlxG.elapsed;
+			}
 			
 			//MOVEMENT
 			acceleration.x = 0;

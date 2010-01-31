@@ -25,6 +25,7 @@
 			revive();
 			velocity.x = x_vel;
 			velocity.y = -50;
+			visible = false;
 		}
 		
 		override public function update():void {

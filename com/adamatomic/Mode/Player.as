@@ -17,6 +17,8 @@ package com.adamatomic.Mode
 		[Embed(source = "../../../Sounds/Finals/Smoke/Smoke4.mp3")] private var SmokeShot:Class;
 		[Embed(source = "../../../Sounds/Finals/Smoke/Smoke2.mp3")] private var Cloak:Class;
 		
+		[Embed(source = "../../../Sounds/Finals/Shoot/1.mp3")] private var SndSwitchHat:Class;
+		
 		
 		private var _jumpPower:int;
 		private var _bullets:Array;
@@ -161,6 +163,7 @@ package com.adamatomic.Mode
 			// CHANGE HAT
 			if (FlxG.keys.justReleased("Z")) {
 				if (_hats_avail.length > 0) {
+					FlxG.play(SndSwitchHat);
 					_cur_hat = _hats_avail[(_hats_avail.indexOf(_cur_hat) + 1) % _hats_avail.length];
 					_hat.kill();
 					_hat.destroy();

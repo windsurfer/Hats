@@ -69,7 +69,7 @@ package com.adamatomic.Mode
 			_finish_door.alpha = 0;
 			_finish_door.width = 16;
 			_finish_door.height = 16;
-			_cur_level = 10;
+			_cur_level = 3;
 			
 			
 			

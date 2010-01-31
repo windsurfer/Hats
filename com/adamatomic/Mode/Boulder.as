@@ -8,7 +8,7 @@
 	public class Boulder extends FlxSprite
 	{
 		[Embed(source = "../../../data/boulder.png")] private var ImgBoulder:Class;
-		
+		[Embed(source = "../../../Sounds/Finals/SmallEnemy/Hurt3.mp3")] private var SndBoulder:Class;
 		
 		protected const bounce:Number = 0.8;
 		
@@ -41,6 +41,9 @@
 		}
 		
 		override public function hitFloor(Contact:FlxCore = null):Boolean {
+			if (velocity.y > 20) {
+				FlxG.play(SndBoulder);
+			}
 			FlxG.quake(0.00015 * velocity.y, 0.6);
 			velocity.y = velocity.y * -bounce; 
 			return true; 

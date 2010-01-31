@@ -1,18 +1,18 @@
 Intro Chapter
 ------------------
-Camo Intro 
-Horn Intro
-Spring Intro
-Bunny Intro
-Smoke Intro
+Camo Intro ----	CamoIntro.txt 
+Horn Intro ---- HornIntro.txt
+Spring Intro ---- SpringIntro.txt
+Bunny Intro ---- BunnyIntro.txt
+Smoke Intro ---- SmokeIntro.txt
 
 Chapter 2
 -------------------
-Smoke+Sound
-Sound+Camo
-SuperJump
-Sound_Camo_Smoke
-InvisiBlocks
-Sound,Smoke,Bunny
-Multi_rooms
-FINAL_COUNTDOWN
+Smoke+Sound ---- Smoke+Sound.txt
+Sound+Camo ---- Sound+Camo.txt
+SuperJump ---- SuperJump.txt
+Sound_Camo_Smoke ---- Sound_Camo_Smoke.txt
+InvisiBlocks ---- InvisiBlocks.txt
+Sound,Smoke,Bunny ---- 
+Multi_rooms ---- MultiRooms.txt
+FINAL_COUNTDOWN ---- Final_Countdown.txt

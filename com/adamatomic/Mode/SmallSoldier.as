@@ -7,7 +7,7 @@ package com.adamatomic.Mode
 	public class SmallSoldier extends FlxSprite
 	{
 		[Embed(source="../../../data/enemy_normal.png")] private var ImgSoldier:Class;
-		[Embed(source="../../../data/gibs.png")] private var ImgGibs:Class;
+		[Embed(source="../../../data/enemy_normal_gibs.png")] private var ImgGibs:Class;
 		[Embed(source="../../../data/asplode.mp3")] private var SndExplode:Class;
 		[Embed(source="../../../data/hit.mp3")] private var SndHit:Class;
 		
@@ -33,7 +33,7 @@ package com.adamatomic.Mode
 			width = 16;
 			height = 32;
 			offset.x = 1;
-			offset.y = 1;
+			offset.y = -1;
 			
 			acceleration.y = 420;
 			_run_speed = 32;
@@ -64,7 +64,8 @@ package com.adamatomic.Mode
 		{
 			if(dead)
 			{
-				if(finished) exists = false;
+				if (finished) 
+					exists = false;
 				else
 					super.update();
 				return;

@@ -94,7 +94,8 @@ package org.flixel
 			super.destroy();
 			var cl:uint = _children.length;
 			for(var i:uint = 0; i < cl; i++)
-				_children[i].destroy();
+				if (_children[i] != null)
+					_children[i].destroy();
 			_children.length = 0;
 		}
 		

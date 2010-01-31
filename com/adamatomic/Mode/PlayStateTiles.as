@@ -18,11 +18,12 @@ package com.adamatomic.Mode
 		private var _bullets:Array;
 		private var _player:Player;
 		private var _sm_soldiers:Array;
+		private var _restart:Number;
 		
 		function PlayStateTiles():void
 		{
 			super();
-
+			_restart = 0;
 			
 			//create player and bullets
 			_spikes = new Array();
@@ -47,7 +48,19 @@ package com.adamatomic.Mode
 
 		override public function update():void
 		{
+			
+			if(_player.dead)
+			{
+				_restart += FlxG.elapsed;
+				if(_restart > 2){
+					changeLevel(0);
+					_restart = 0; 
+				}
+					
+			}
+			
 			super.update();
+			//game restart timer
 			_tilemap.collideArray(_bullets);
 			_tilemap.collide(_player);
 			_tilemap.collideArray(_sm_soldiers);
@@ -62,6 +75,15 @@ package com.adamatomic.Mode
 					_player.kill();
 				}
 			}
+			
+			for each (var spike2:FlxSprite in _spikes){
+				for each (var soldier2:SmallSoldier in _sm_soldiers){
+					if (soldier2.overlaps(spike2)) {
+						soldier2.kill();
+					}
+				}
+			}
+			
 			
 			if(FlxG.keys.justPressed("M"))
 			{
@@ -164,6 +186,8 @@ package com.adamatomic.Mode
 			var fy:uint = _tilemap.height/2 - FlxG.height/2;
 			FlxG.followBounds(fx,fy,fx,fy);
 			_tilemap.follow();
+			
+			FlxG.follow(_player,2.5);
 			addObjects();
 
 		}
@@ -182,17 +206,12 @@ package com.adamatomic.Mode
 		
 		private function killObjects():void {
 			
-			var kill_plz:Array = [_bullets, _sm_soldiers];
-			for each(var array:Array in kill_plz)
-				
-				for each(var obj:FlxCore in array)
-					obj.kill();
-					obj.exists = false;
-				{
-				array = new Array();
-			}
+			while (_spikes.pop() != null) { }
+			while (_sm_soldiers.pop() != null) {}
 			
-				
+			this._layer.destroy();
+			
+			_player = new Player(0,0,_bullets);
 			
 		}
 	}

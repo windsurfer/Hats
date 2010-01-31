@@ -19,14 +19,13 @@ package com.adamatomic.Mode
 		private var _bulletVel:int;
 		private var _up:Boolean;
 		private var _down:Boolean;
-		private var _restart:Number;
 		public var _gibs:FlxEmitter;
 		
 		public function Player(X:int,Y:int,Bullets:Array)
 		{
 			super(X,Y);
 			loadGraphic(ImgSpaceman,true,true,16,32);
-			_restart = 0;
+			
 			
 			//bounding box tweaks
 			width = 13;
@@ -59,15 +58,9 @@ package com.adamatomic.Mode
 		
 		override public function update():void
 		{
-			//game restart timer
+
 			if(dead)
-			{
-				_restart += FlxG.elapsed;
-				if(_restart > 2)
-					FlxG.switchState(PlayStateTiles);
-				return;
-			}
-			
+			{ return;}
 			//MOVEMENT
 			acceleration.x = 0;
 			if(FlxG.keys.LEFT)

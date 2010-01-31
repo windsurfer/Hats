@@ -41,6 +41,7 @@
 		}
 		
 		override public function hitFloor(Contact:FlxCore = null):Boolean {
+			FlxG.quake(0.00015 * velocity.y, 0.6);
 			velocity.y = velocity.y * -bounce; 
 			return true; 
 		}

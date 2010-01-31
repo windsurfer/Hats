@@ -72,6 +72,7 @@ package com.adamatomic.Mode
 			addAnimation("idle", [0]);
 			addAnimation("run", [1, 2, 3, 0], 12);
 			addAnimation("jump", [4]);
+			addAnimation("victory", [5]);
 			
 		}
 		

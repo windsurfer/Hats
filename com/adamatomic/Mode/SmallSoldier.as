@@ -12,7 +12,7 @@ package com.adamatomic.Mode
 		[Embed(source="../../../data/hit.mp3")] private var SndHit:Class;
 		
 		private var _gibs:FlxEmitter;
-		private var _player:Player;
+		protected var _player:Player;
 		protected var _timer:Number;
 		protected var _run_speed:Number;
 		protected var _stand_timer:Number;

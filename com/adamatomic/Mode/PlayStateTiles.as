@@ -35,6 +35,7 @@ package com.adamatomic.Mode
 		
 		private var _player:Player;
 		private var _sm_soldiers:Array;
+		private var _sm_arrows:Array;
 		private var _restart:Number;
 		private var _smoke_bomb:SmokeBomb;
 		private var _sound_bomb:SoundBomb;
@@ -54,6 +55,7 @@ package com.adamatomic.Mode
 			_spikes = new Array();
 			_bullets = new Array();
 			_sm_soldiers = new Array();
+			_sm_arrows = new Array();
 			_dead_blocks = new Array();
 			_player = new Player(0,0, _smoke_bomb, _sound_bomb);
 			for(var i:uint = 0; i < 8; i++)
@@ -62,6 +64,8 @@ package com.adamatomic.Mode
 			
 			_finish_door = new FlxSprite(0, 0);
 			_finish_door.alpha = 0;
+			_finish_door.width = 16;
+			_finish_door.height = 16;
 			_cur_level = 0;
 			
 			
@@ -106,6 +110,8 @@ package com.adamatomic.Mode
 			_tilemap.collide(_sound_bomb);
 			
 			
+			
+			
 			if (!_boulder.dead) {
 				_tilemap.collide(_boulder);
 				if (_boulder.overlaps(_player)) {
@@ -145,6 +151,27 @@ package com.adamatomic.Mode
 					_player.kill();
 				}
 			}
+			for each (var arrow:FlxSprite in _sm_arrows) {
+				if (_tilemap.collide(arrow)){
+					arrow.kill();
+					var _gibs:FlxEmitter = new FlxEmitter(0,0,-0.6);
+					_gibs.setXVelocity(-30,30);
+					_gibs.setYVelocity( -30, 30);
+					_gibs.gravity = -100;
+					_gibs.setRotation(-180,-180);
+					_gibs.createSprites(Player.ImgSmoke,2);
+					FlxG.state.add(_gibs);
+					_gibs.x = arrow.x + width/2;
+					_gibs.y = arrow.y + height/4;
+					_gibs.restart();
+					
+					arrow.x = 0;
+					arrow.y = 0;
+				}
+				if (arrow.overlaps(_player)) {
+					_player.kill();
+				}
+			}
 			
 			for each (var spike2:FlxSprite in _spikes){
 				for each (var soldier2:SmallSoldier in _sm_soldiers){
@@ -170,6 +197,7 @@ package com.adamatomic.Mode
 				
 				_cur_level++;
 				FlxG.fade(0xff000000, 2, changeProperLevel, true);
+				_player.play("victory");
 				_player.active = false;
 			}
 			
@@ -247,16 +275,23 @@ package com.adamatomic.Mode
 					
 					switch (tile) {
 						case 19:
-							//spawn archer soldier
+							
+							//spawn small soldier
 							_sm_soldiers.push(new SmallSoldier(x_pos, y_pos - 16, _player, _tilemap));
+							
 							break;
 						case 20:
 							//spawn small soldier
 							_sm_soldiers.push(new LargeSoldier(x_pos, y_pos - 32, _player, _tilemap));
 							break;
 						case 21:
-							//spawn small soldier
-							_sm_soldiers.push(new SmallSoldier(x_pos, y_pos - 16, _player, _tilemap));
+							//spawn archer soldier
+							var arrow:FlxSprite = new FlxSprite(0, 0);
+							arrow.loadGraphic(ArcherSoldier.ImgArrow, false, true);
+							arrow.kill();
+							_sm_arrows.push(arrow);
+							_sm_soldiers.push(new ArcherSoldier(x_pos, y_pos, _player, _tilemap, arrow));
+							
 							break;	
 						case 22:
 							// EXIT
@@ -322,12 +357,17 @@ package com.adamatomic.Mode
 			this.add(_smoke_bomb);
 			this.add(_sound_bomb);
 			this.add(_finish_door);
+			
+			for each (var arrow:FlxSprite in _sm_arrows){
+				this.add(arrow);
+			}
 		}
 		
 		private function killObjects():void {
 			
 			while (_spikes.pop() != null) { }
 			while (_sm_soldiers.pop() != null) { }
+			while (_sm_arrows.pop() != null) {}
 			while (_dead_blocks.pop() != null) {}	
 			
 			this._layer.destroy();

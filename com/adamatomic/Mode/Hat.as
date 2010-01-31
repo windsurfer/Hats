@@ -12,11 +12,11 @@ package com.adamatomic.Mode
 	public class Hat extends FlxSprite
 	{
 		
-		[Embed(source="../../../data/Camo_Hat.png")] private var ImgCamo:Class;
-		[Embed(source = "../../../data/Bunny_Hat.png")] private var ImgBunny:Class;
-		[Embed(source = "../../../data/Spring_Hat.png")] private var ImgSpring:Class;
-		[Embed(source = "../../../data/noiseHat.png")] private var ImgNoise:Class;
-		[Embed(source = "../../../data/smokeHat.png")] private var ImgSmoke:Class;
+		[Embed(source="../../../data/Camo_Hat.png")] public static var ImgCamo:Class;
+		[Embed(source = "../../../data/Bunny_Hat.png")] public static var ImgBunny:Class;
+		[Embed(source = "../../../data/Spring_Hat.png")] public static var ImgSpring:Class;
+		[Embed(source = "../../../data/noiseHat.png")] public static var ImgNoise:Class;
+		[Embed(source = "../../../data/smokeHat.png")] public static var ImgSmoke:Class;
 		
 		
 		

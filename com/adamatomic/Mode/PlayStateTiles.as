@@ -140,7 +140,7 @@ package com.adamatomic.Mode
 					switch (tile) {
 						case 19:
 							//spawn archer soldier
-							_sm_soldiers.push(new SmallSoldier(x_pos, y_pos - 32, _player, _tilemap));
+							_sm_soldiers.push(new SmallSoldier(x_pos, y_pos - 16, _player, _tilemap));
 							break;
 						case 20:
 							//spawn small soldier
@@ -148,7 +148,7 @@ package com.adamatomic.Mode
 							break;
 						case 21:
 							//spawn small soldier
-							_sm_soldiers.push(new SmallSoldier(x_pos, y_pos - 32, _player, _tilemap));
+							_sm_soldiers.push(new SmallSoldier(x_pos, y_pos - 16, _player, _tilemap));
 							break;	
 						case 22:
 							// EXIT
@@ -156,7 +156,7 @@ package com.adamatomic.Mode
 						case 23:
 							// SPAWN
 							player_spawn_x = x_pos;
-							player_spawn_y = y_pos - 32;
+							player_spawn_y = y_pos - 16;
 							break;
 						case 24:
 							//WHAT IS THIS

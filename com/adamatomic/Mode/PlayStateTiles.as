@@ -20,6 +20,8 @@ package com.adamatomic.Mode
 		[Embed(source = "../../../data/Marps/MultiRooms.txt", mimeType = "application/octet-stream")] private var TxtMap12:Class;
 		[Embed(source = "../../../data/Marps/Final_Countdown.txt", mimeType = "application/octet-stream")] private var TxtMap13:Class;
 		
+		[Embed(source="../../../data/MainTheme.mp3")] private var themeSong:Class;
+		
 		[Embed(source="../../../data/tiles_all.png")] private var ImgTiles:Class;
 		
 		//major game objects
@@ -60,7 +62,7 @@ package com.adamatomic.Mode
 			
 			_finish_door = new FlxSprite(0, 0);
 			_finish_door.alpha = 0;
-			_cur_level = 10;
+			_cur_level = 0;
 			
 			
 			
@@ -78,8 +80,8 @@ package com.adamatomic.Mode
 			changeLevel(_cur_level);
 			
 			//The music in this mode is positional - it fades out toward the edges of the level
-			var s:FlxSound = FlxG.play(SndMode,1,true);
-			s.proximity(320,320,_player,160);
+			var s:FlxSound = FlxG.play(themeSong,1,true);
+			s.play();
 		}
 
 		override public function update():void

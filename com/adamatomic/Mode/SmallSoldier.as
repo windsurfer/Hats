@@ -29,12 +29,15 @@ package com.adamatomic.Mode
 		
 		static public const _alarm_dist:Number = 128;
 		
+		public var _leaves_remains:Boolean;
+		
 		public function SmallSoldier(xPos:int,yPos:int,ThePlayer:Player, TheWorld:FlxTilemap)
 		{
 			super(xPos,yPos);
 			loadGraphic(ImgSoldier,true, true,16,32);
 			_player = ThePlayer;
 			_world = TheWorld;
+			_leaves_remains = false;
 			
 			if (FlxG.random() < 0.5) _facing = RIGHT;
 			else _facing = LEFT;

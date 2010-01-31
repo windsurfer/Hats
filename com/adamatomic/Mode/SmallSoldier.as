@@ -126,6 +126,7 @@ package com.adamatomic.Mode
 				
 				if (!_world.collide(_feeler)) {
 					acceleration.x = 0;
+					velocity.x = 0;
 					play("idle");
 					_timer += FlxG.elapsed;
 				}else {

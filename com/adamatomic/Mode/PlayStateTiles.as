@@ -4,7 +4,7 @@ package com.adamatomic.Mode
 
 	public class PlayStateTiles extends FlxState
 	{
-		[Embed(source="../../../data/mode.mp3")] private var SndMode:Class;
+		[Embed(source="../../../Sounds/Finals/Shoot/3.mp3")] private var SndMode:Class;
 		[Embed(source="../../../data/Marps/CamoIntro.txt",mimeType="application/octet-stream")] private var TxtMap:Class;
 		[Embed(source = "../../../data/Marps/HornIntro.txt", mimeType = "application/octet-stream")] private var TxtMap2:Class;
 		[Embed(source = "../../../data/Marps/SpringIntro.txt", mimeType = "application/octet-stream")] private var TxtMap3:Class;
@@ -69,7 +69,7 @@ package com.adamatomic.Mode
 			_finish_door.alpha = 0;
 			_finish_door.width = 16;
 			_finish_door.height = 16;
-			_cur_level = 3;
+			_cur_level = 0;
 			
 			
 			
@@ -349,7 +349,15 @@ package com.adamatomic.Mode
 			FlxG.followBounds(fx,fy,fx,fy);
 			_tilemap.follow();
 			
-			FlxG.follow(_player,2.5);
+			FlxG.follow(_player, 2.5);
+			if (Level == 1) {
+			
+				var _t1 :FlxText = new FlxText(FlxG.width/2,FlxG.height/3,80,"Z, X, C");
+				_t1.size = 32;
+				_t1.color = 0xffffff;
+				_t1.antialiasing = true;
+				this.add(_t1);	
+			}
 			addObjects();
 
 		}

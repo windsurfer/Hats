@@ -7,8 +7,8 @@ package com.adamatomic.Mode
 		[Embed(source = "../../../data/cursor.png")] private var ImgCursor:Class;
 		
 		[Embed(source="../../../data/hats_gibs.png")] public static var ImgHats:Class;
-		[Embed(source="../../../data/menu_hit.mp3")] private var SndHit:Class;
-		[Embed(source="../../../data/menu_hit_2.mp3")] private var SndHit2:Class;
+		[Embed(source="../../../Sounds/Finals/Shoot/3.mp3")] private var SndHit:Class;
+		[Embed(source="../../../Sounds/Finals/Shoot/3.mp3")] private var SndHit2:Class;
 		
 		private var _e:FlxEmitter;
 		private var _b:FlxButton;

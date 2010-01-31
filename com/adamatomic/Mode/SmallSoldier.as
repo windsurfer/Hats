@@ -8,7 +8,6 @@ package com.adamatomic.Mode
 	{
 		[Embed(source="../../../data/enemy_normal.png")] private var ImgSoldier:Class;
 		[Embed(source="../../../data/enemy_normal_gibs.png")] private var ImgGibs:Class;
-		[Embed(source="../../../data/asplode.mp3")] private var SndExplode:Class;
 		[Embed(source="../../../data/hit.mp3")] private var SndHit:Class;
 		
 		private var _gibs:FlxEmitter;
@@ -24,7 +23,7 @@ package com.adamatomic.Mode
 		protected var slow_speed:Number;
 		protected var fast_speed:Number;
 		
-		static public const _blinded_time:Number = 2;
+		static public const _blinded_time:Number = 3;
 		protected var _blinded_timer:Number;
 		
 		static public const _alarm_dist:Number = 128;

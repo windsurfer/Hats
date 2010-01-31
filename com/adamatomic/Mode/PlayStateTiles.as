@@ -33,6 +33,7 @@ package com.adamatomic.Mode
 		
 		private var _player:Player;
 		private var _sm_soldiers:Array;
+		private var _sm_arrows:Array;
 		private var _restart:Number;
 		private var _smoke_bomb:SmokeBomb;
 		private var _sound_bomb:SoundBomb;
@@ -52,6 +53,7 @@ package com.adamatomic.Mode
 			_spikes = new Array();
 			_bullets = new Array();
 			_sm_soldiers = new Array();
+			_sm_arrows = new Array();
 			_dead_blocks = new Array();
 			_player = new Player(0,0, _smoke_bomb, _sound_bomb);
 			for(var i:uint = 0; i < 8; i++)
@@ -60,7 +62,7 @@ package com.adamatomic.Mode
 			
 			_finish_door = new FlxSprite(0, 0);
 			_finish_door.alpha = 0;
-			_cur_level = 10;
+			_cur_level = 4;
 			
 			
 			
@@ -140,6 +142,11 @@ package com.adamatomic.Mode
 			}
 			for each (var spike:FlxSprite in _spikes){
 				if (spike.overlaps(_player)) {
+					_player.kill();
+				}
+			}
+			for each (var arrow:FlxSprite in _sm_arrows) {
+				if (arrow.overlaps(_player)) {
 					_player.kill();
 				}
 			}
@@ -246,7 +253,11 @@ package com.adamatomic.Mode
 					switch (tile) {
 						case 19:
 							//spawn archer soldier
-							_sm_soldiers.push(new SmallSoldier(x_pos, y_pos - 16, _player, _tilemap));
+							var arrow:FlxSprite = new FlxSprite(0, 0);
+							arrow.loadGraphic(ArcherSoldier.ImgArrow, false, true);
+							arrow.kill();
+							_sm_arrows.push(arrow);
+							_sm_soldiers.push(new ArcherSoldier(x_pos, y_pos, _player, _tilemap, arrow));
 							break;
 						case 20:
 							//spawn small soldier
@@ -320,12 +331,17 @@ package com.adamatomic.Mode
 			this.add(_smoke_bomb);
 			this.add(_sound_bomb);
 			this.add(_finish_door);
+			
+			for each (var arrow:FlxSprite in _sm_arrows){
+				this.add(arrow);
+			}
 		}
 		
 		private function killObjects():void {
 			
 			while (_spikes.pop() != null) { }
 			while (_sm_soldiers.pop() != null) { }
+			while (_sm_arrows.pop() != null) {}
 			while (_dead_blocks.pop() != null) {}	
 			
 			this._layer.destroy();

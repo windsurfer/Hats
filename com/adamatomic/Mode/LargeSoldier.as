@@ -48,11 +48,11 @@ package com.adamatomic.Mode
 				return;
 			
 			//Gibs emitted upon death
-			_gibs = new FlxEmitter(0,0,-1.5);
+			_gibs = new FlxEmitter(0,0,-2.5);
 			_gibs.setXVelocity(-150,150);
-			_gibs.setYVelocity(-200,0);
-			_gibs.setRotation(-720,-720);
-			_gibs.createSprites(ImgGibs,20);
+			_gibs.setYVelocity(-300,0);
+			_gibs.setRotation(-320,-320);
+			_gibs.createSprites(ImgGibs,80);
 			FlxG.state.add(_gibs);
 			
 			_gibs.x = this.x + width/2;

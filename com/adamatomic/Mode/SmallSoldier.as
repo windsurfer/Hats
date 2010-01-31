@@ -113,7 +113,7 @@ package com.adamatomic.Mode
 				}
 				_feeler.y = this.y+this.height;
 				
-				if (playerDist() < _max_player_dist && playerOnSide()) {
+				if (!_player._invisible && playerDist() < _max_player_dist && playerOnSide()) {
 					
 					acceleration.x * 10;
 					maxVelocity.x = fast_speed;

@@ -65,9 +65,11 @@ package com.adamatomic.Mode
 			_tilemap.collide(_player);
 			_tilemap.collideArray(_sm_soldiers);
 			
-			for each (var soldier:SmallSoldier in _sm_soldiers){
-				if (soldier.overlaps(_player) && !soldier.dead) {
-					_player.kill();
+			if (!_player._invisible){
+				for each (var soldier:SmallSoldier in _sm_soldiers){
+					if (soldier.overlaps(_player) && !soldier.dead) {
+						_player.kill();
+					}
 				}
 			}
 			for each (var spike:FlxSprite in _spikes){

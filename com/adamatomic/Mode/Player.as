@@ -5,7 +5,10 @@ package com.adamatomic.Mode
 	public class Player extends FlxSprite
 	{
 		[Embed(source="../../../data/wizard.png")] private var ImgSpaceman:Class;
-		[Embed(source="../../../data/wizard_gibs.png")] private var ImgGibs:Class;
+		[Embed(source = "../../../data/wizard_gibs.png")] private var ImgGibs:Class;
+		[Embed(source="../../../data/smoke_gibs.png")] private var ImgSmoke:Class;
+		
+		
 		[Embed(source="../../../data/jump.mp3")] private var SndJump:Class;
 		[Embed(source="../../../data/land.mp3")] private var SndLand:Class;
 		[Embed(source="../../../data/asplode.mp3")] private var SndExplode:Class;
@@ -27,15 +30,19 @@ package com.adamatomic.Mode
 		public var _hats_avail:Array; // strings
 		public var _cur_hat:String;
 		public var _hat:Hat;
+		public var _invisible:Boolean;
 		
 		public function Player(X:int,Y:int,Bullets:Array)
 		{
 			super(X,Y);
 			loadGraphic(ImgSpaceman,true,true,16,32);
 			
-			_hats_avail = new Array(Hat.SPRING_HAT); // start without any
+			_hats_avail = new Array(Hat.SPRING_HAT, Hat.CAMO_HAT, Hat.BUNNY_HAT); // start without any
 			_cur_hat = Hat.NULL_HAT;
-			_hat = new Hat(_cur_hat);
+			_hat = new Hat(_cur_hat, this);
+			
+			_invisible = false;
+			
 			
 			//bounding box tweaks
 			width = 13;
@@ -49,7 +56,7 @@ package com.adamatomic.Mode
 			acceleration.y = 420;
 			_jumpPower = 185;
 			maxVelocity.x = runSpeed;
-			maxVelocity.y = 200;
+			maxVelocity.y = 300;
 			
 			//animations 
 			addAnimation("idle", [0]);
@@ -70,7 +77,32 @@ package com.adamatomic.Mode
 			_hat.facing = this.facing;
 		}
 		
+		public function go_invisible():void {
+			if (velocity.y != 0) {
+				return;
+			}
+		 	velocity.x = 0;
+			_invisible = true;
+			this.alpha = 0.2;
+			
+			//Gibs emitted upon invisibility
+			_gibs = new FlxEmitter(0,0,-1.5);
+			_gibs.setXVelocity(-20,20);
+			_gibs.setYVelocity( 30, 5);
+			_gibs.gravity = -100;
+			_gibs.setRotation(-180,-180);
+			_gibs.createSprites(ImgSmoke,9);
+			FlxG.state.add(_gibs);
+			_gibs.x = this.x + width/2;
+			_gibs.y = this.y + height/2;
+			_gibs.restart();
+		}
 		
+		public function please_jump_high():void {
+		 	if (velocity.y == 0) {
+				velocity.y -= 300;
+			}
+		}
 		
 		override public function update():void
 		{
@@ -110,7 +142,7 @@ package com.adamatomic.Mode
 					_cur_hat = _hats_avail[(_hats_avail.indexOf(_cur_hat) + 1) % _hats_avail.length];
 					_hat.kill();
 					_hat.destroy();
-					_hat = new Hat(_cur_hat);
+					_hat = new Hat(_cur_hat, this);
 				}
 			}
 			
@@ -132,42 +164,29 @@ package com.adamatomic.Mode
 			
 			
 			
+			if (_cur_hat == Hat.CAMO_HAT && velocity.x == 0 && velocity.y == 0) {
+				//go_invisible();
+			}else if (this.alpha != 1) {
+				_invisible = false;
+				this.alpha = 1;
+			}
+			
+			
 			
 			
 			
 			
 			
 			//ACTION
-			if(!flickering() && FlxG.keys.justPressed("C"))
+			if(FlxG.keys.justPressed("S"))
 			{
-				var bXVel:int = 0;
-				var bYVel:int = 0;
-				var bX:int = x;
-				var bY:int = y;
-				if(_up)
-				{
-					bY -= _bullets[_curBullet].height - 4;
-					bYVel = -_bulletVel;
-				}
-				else if(_down)
-				{
-					bY += height - 4;
-					bYVel = _bulletVel;
-					velocity.y -= 96;
-				}
-				else if(facing == RIGHT)
-				{
-					bX += width - 4;
-					bXVel = _bulletVel;
-				}
-				else
-				{
-					bX -= _bullets[_curBullet].width - 4;
-					bXVel = -_bulletVel;
-				}
-				_bullets[_curBullet].shoot(bX,bY,bXVel,bYVel);
-				if(++_curBullet >= _bullets.length)
-					_curBullet = 0;
+				velocity.y -= 96;
+			}
+			
+			if(FlxG.keys.justPressed("C"))
+			{
+				// Activate hat!
+				_hat.run();
 			}
 				
 			//UPDATE POSITION AND ANIMATION
@@ -183,6 +202,7 @@ package com.adamatomic.Mode
 				FlxG.play(SndLand);
 			return super.hitFloor();
 		}
+		
 		
 		override public function hurt(Damage:Number):void
 		{

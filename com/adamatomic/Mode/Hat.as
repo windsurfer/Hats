@@ -23,8 +23,15 @@ package com.adamatomic.Mode
 		public static const CAMO_HAT:String = "CAMO_HAT";
 		public static const SOUND_HAT:String = "SOUND_HAT";
 		
-		public function Hat(WhichHat:String)
+		protected var timer:Number;
+		protected var _player:Player;
+		
+		public var whatami:String;
+		
+		public function Hat(WhichHat:String, PlayerRef:Player)
 		{
+			_player = PlayerRef;
+			
 			if (WhichHat == CAMO_HAT){
 				loadGraphic(ImgCamo, true, true, 28, 23);
 				addAnimation("idle", [0]);
@@ -41,7 +48,22 @@ package com.adamatomic.Mode
 				createGraphic(23, 23);
 			}
 			
+			whatami = WhichHat;
+			
 			FlxG.state.add(this);
+		}
+		
+		public function run():void {
+			if (whatami == CAMO_HAT) {
+				_player.go_invisible();
+			}else if (whatami == BUNNY_HAT) {
+				// nothing
+			}else if (whatami == SPRING_HAT) {
+				// jump!
+				_player.please_jump_high();
+			}else {
+				
+			}
 		}
 		
 		

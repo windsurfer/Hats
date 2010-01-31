@@ -206,13 +206,9 @@ package com.adamatomic.Mode
 		
 		private function killObjects():void {
 			
-			var kill_plz:Array = [_spikes, _sm_soldiers];
-			for (var i:int = 0; i < kill_plz.length;i++ ) {
-				for (var j:int = 0; j < kill_plz[i].length; j++ ) {
-					kill_plz[i][j].destroy();
-				}
-				kill_plz[i] = new Array();
-			}
+			while (_spikes.pop() != null) { }
+			while (_sm_soldiers.pop() != null) {}
+			
 			this._layer.destroy();
 			
 			_player = new Player(0,0,_bullets);

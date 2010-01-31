@@ -33,7 +33,7 @@ package com.adamatomic.Mode
 			width = 16;
 			height = 32;
 			offset.x = 1;
-			offset.y = 1;
+			offset.y = -1;
 			
 			acceleration.y = 420;
 			_run_speed = 32;

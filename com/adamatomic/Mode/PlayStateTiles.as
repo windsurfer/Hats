@@ -106,6 +106,8 @@ package com.adamatomic.Mode
 			_tilemap.collide(_sound_bomb);
 			
 			
+			
+			
 			if (!_boulder.dead) {
 				_tilemap.collide(_boulder);
 				if (_boulder.overlaps(_player)) {
@@ -146,6 +148,22 @@ package com.adamatomic.Mode
 				}
 			}
 			for each (var arrow:FlxSprite in _sm_arrows) {
+				if (_tilemap.collide(arrow)){
+					arrow.kill();
+					var _gibs:FlxEmitter = new FlxEmitter(0,0,-0.6);
+					_gibs.setXVelocity(-30,30);
+					_gibs.setYVelocity( -30, 30);
+					_gibs.gravity = -100;
+					_gibs.setRotation(-180,-180);
+					_gibs.createSprites(Player.ImgSmoke,2);
+					FlxG.state.add(_gibs);
+					_gibs.x = arrow.x + width/2;
+					_gibs.y = arrow.y + height/4;
+					_gibs.restart();
+					
+					arrow.x = 0;
+					arrow.y = 0;
+				}
 				if (arrow.overlaps(_player)) {
 					_player.kill();
 				}

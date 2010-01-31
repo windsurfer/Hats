@@ -16,6 +16,7 @@ package com.adamatomic.Mode
 			super(xPos,yPos,ThePlayer, TheWorld);
 			loadGraphic(ImgSoldier,true, true,32,48);
 			
+			_leaves_remains = true;
 			_facing = RIGHT;
 			
 			width = 24;

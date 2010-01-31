@@ -27,6 +27,10 @@ package com.adamatomic.Mode
 		private var _backmap:FlxTilemap;
 		private var _spikes:Array;
 		private var _bullets:Array;
+		
+		private var _dead_blocks:Array;
+		
+		
 		private var _player:Player;
 		private var _sm_soldiers:Array;
 		private var _restart:Number;
@@ -48,13 +52,15 @@ package com.adamatomic.Mode
 			_spikes = new Array();
 			_bullets = new Array();
 			_sm_soldiers = new Array();
+			_dead_blocks = new Array();
 			_player = new Player(0,0, _smoke_bomb, _sound_bomb);
 			for(var i:uint = 0; i < 8; i++)
 				_bullets.push(new Bullet());
 			
 			
 			_finish_door = new FlxSprite(0, 0);
-			_cur_level = 3;
+			_finish_door.alpha = 0;
+			_cur_level = 10;
 			
 			
 			
@@ -97,6 +103,7 @@ package com.adamatomic.Mode
 			_tilemap.collide(_smoke_bomb);
 			_tilemap.collide(_sound_bomb);
 			
+			
 			if (!_boulder.dead) {
 				_tilemap.collide(_boulder);
 				if (_boulder.overlaps(_player)) {
@@ -104,11 +111,19 @@ package com.adamatomic.Mode
 				}
 			}
 			
+			for each (var dead_block:DeadLargeSoldier in _dead_blocks) {
+				dead_block.collide(_player);
+			}
+			
 			
 			for each (var soldier:SmallSoldier in _sm_soldiers){
 				if (soldier.overlaps(_smoke_bomb) && !_smoke_bomb.dead && !soldier.dead) {
 					soldier.blind();
 					_smoke_bomb.explode();
+				}
+				if (soldier._leaves_remains && soldier.dead) {
+					soldier._leaves_remains = false;
+					_dead_blocks.push(new DeadLargeSoldier(soldier.x, soldier.y));
 				}
 			}
 			
@@ -146,6 +161,11 @@ package com.adamatomic.Mode
 			}
 			
 			if (_finish_door.collide(_player)) {
+				for each ( soldier in _sm_soldiers) {
+					soldier.kill();
+				}
+				_boulder.kill();
+				
 				_cur_level++;
 				FlxG.fade(0xff000000, 2, changeProperLevel, true);
 				_player.active = false;
@@ -305,7 +325,8 @@ package com.adamatomic.Mode
 		private function killObjects():void {
 			
 			while (_spikes.pop() != null) { }
-			while (_sm_soldiers.pop() != null) {}
+			while (_sm_soldiers.pop() != null) { }
+			while (_dead_blocks.pop() != null) {}	
 			
 			this._layer.destroy();
 			

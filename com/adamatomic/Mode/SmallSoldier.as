@@ -13,12 +13,13 @@ package com.adamatomic.Mode
 		
 		private var _gibs:FlxEmitter;
 		private var _player:Player;
-		private var _timer:Number;
-		private var _run_speed:Number;
-		private var _stand_timer:Number;
-		private var _world:FlxTilemap;
+		protected var _timer:Number;
+		protected var _run_speed:Number;
+		protected var _stand_timer:Number;
+		protected var _world:FlxTilemap;
 		public var _feeler:FlxSprite;
 		static private var _cb:uint = 0;
+		protected var _max_player_dist:Number;
 		
 		public function SmallSoldier(xPos:int,yPos:int,ThePlayer:Player, TheWorld:FlxTilemap)
 		{
@@ -27,13 +28,17 @@ package com.adamatomic.Mode
 			_player = ThePlayer;
 			_world = TheWorld;
 			
-			_facing = RIGHT;
+			if (FlxG.random() < 0.5) _facing = RIGHT;
+			else _facing = LEFT;
 			_stand_timer = 0;
 			
 			width = 16;
 			height = 32;
 			offset.x = 1;
 			offset.y = -1;
+			
+			_max_player_dist = 64;
+			
 			
 			acceleration.y = 420;
 			_run_speed = 32;
@@ -44,7 +49,7 @@ package com.adamatomic.Mode
 			
 			addAnimation("idle", [0]);
 			addAnimation("walking", [1, 2, 3, 0], 12, true);
-
+			addAnimation("angry", [4, 5 , 6, 7], 18, true);
 			
 			
 			reset(x,y);
@@ -59,6 +64,16 @@ package com.adamatomic.Mode
 			}
 			return super.hitWall();
 		}
+		
+		public function playerDist():uint {
+			return (Math.sqrt( Math.pow(x - _player.x, 2) + Math.pow(y - _player.y, 2)));
+		}
+		
+		public function playerOnSide():Boolean {
+			return ((_player.x > this.x && _facing == RIGHT) || (_player.x < this.x && _facing == LEFT));
+		}
+		
+		
 		
 		override public function update():void
 		{
@@ -89,8 +104,16 @@ package com.adamatomic.Mode
 					acceleration.x -= _run_speed;
 					_feeler.x = this.x -this.width;
 				}
-				_feeler.y = this.y+32;
+				_feeler.y = this.y+this.height;
 				
+				if (playerDist() < _max_player_dist && playerOnSide()) {
+					
+					acceleration.x * 2;
+					
+					play("angry");
+				}else {
+					play("walking");
+				}
 	
 				
 				if (!_world.collide(_feeler)) {
@@ -101,6 +124,7 @@ package com.adamatomic.Mode
 					_timer = 0;
 					play("walking");
 				}
+				
 				if (_timer > 2) {
 					_timer = 0;
 					if (_facing == RIGHT) {

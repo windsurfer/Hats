@@ -5,8 +5,8 @@ package com.adamatomic.Mode
 	public class PlayStateTiles extends FlxState
 	{
 		[Embed(source="../../../data/mode.mp3")] private var SndMode:Class;
-		[Embed(source="../../../data/Marps/Final_Countdown.txt",mimeType="application/octet-stream")] private var TxtMap:Class;
-		[Embed(source = "../../../data/map2.txt", mimeType = "application/octet-stream")] private var TxtMap2:Class;
+		[Embed(source="../../../data/Marps/TestLevel.txt",mimeType="application/octet-stream")] private var TxtMap:Class;
+		[Embed(source = "../../../data/Marps/HornIntro.txt", mimeType = "application/octet-stream")] private var TxtMap2:Class;
 		[Embed(source = "../../../data/map3.txt", mimeType = "application/octet-stream")] private var TxtMap3:Class;
 		[Embed(source = "../../../data/map4.txt", mimeType = "application/octet-stream")] private var TxtMap4:Class;
 		[Embed(source="../../../data/tiles_all.png")] private var ImgTiles:Class;
@@ -138,21 +138,28 @@ package com.adamatomic.Mode
 					
 					
 					switch (tile) {
-						
+						case 19:
+							//spawn archer soldier
+							_sm_soldiers.push(new SmallSoldier(x_pos, y_pos - 32, _player, _tilemap));
+							break;
+						case 20:
+							//spawn small soldier
+							_sm_soldiers.push(new LargeSoldier(x_pos, y_pos - 32, _player, _tilemap));
+							break;
 						case 21:
 							//spawn small soldier
 							_sm_soldiers.push(new SmallSoldier(x_pos, y_pos - 32, _player, _tilemap));
 							break;	
 						case 22:
-							//spawn small soldier
-							_sm_soldiers.push(new SmallSoldier(x_pos, y_pos - 32, _player, _tilemap));
+							// EXIT
 							break;
 						case 23:
+							// SPAWN
 							player_spawn_x = x_pos;
 							player_spawn_y = y_pos - 32;
 							break;
 						case 24:
-							//TODO: make an exit
+							//WHAT IS THIS
 							break;
 						default:
 							trace("Shouldn't be here");

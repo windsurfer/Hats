@@ -1,4 +1,3 @@
-
 package com.adamatomic.Mode 
 {
 	/**
@@ -80,7 +79,7 @@ package com.adamatomic.Mode
 				
 			}else if (whatami == SMOKE_HAT) {
 				// shoot a smoke bomb
-				
+				_player.please_shoot_smoke();
 			}else {
 				
 			}

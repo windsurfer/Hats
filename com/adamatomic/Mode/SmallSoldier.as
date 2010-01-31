@@ -24,6 +24,10 @@ package com.adamatomic.Mode
 		protected var slow_speed:Number;
 		protected var fast_speed:Number;
 		
+		static public const _blinded_time:Number = 2;
+		protected var _blinded_timer:Number;
+		
+		
 		public function SmallSoldier(xPos:int,yPos:int,ThePlayer:Player, TheWorld:FlxTilemap)
 		{
 			super(xPos,yPos);
@@ -34,6 +38,7 @@ package com.adamatomic.Mode
 			if (FlxG.random() < 0.5) _facing = RIGHT;
 			else _facing = LEFT;
 			_stand_timer = 0;
+			_blinded_timer = 0;
 			
 			width = 16;
 			height = 32;
@@ -60,6 +65,10 @@ package com.adamatomic.Mode
 			
 			
 			reset(x,y);
+		}
+		
+		public function blind():void {
+			_blinded_timer = _blinded_time;
 		}
 		
 		override public function hitWall(Contact:FlxCore = null):Boolean
@@ -95,8 +104,20 @@ package com.adamatomic.Mode
 			
 			
 			
-			
-			
+			if (_blinded_timer > 0) {
+				_blinded_timer -= FlxG.elapsed;
+				
+				var _gibs:FlxEmitter = new FlxEmitter(0,0,-0.6);
+				_gibs.setXVelocity(-30,30);
+				_gibs.setYVelocity( -30, 30);
+				_gibs.gravity = -100;
+				_gibs.setRotation(-180,-180);
+				_gibs.createSprites(Player.ImgSmoke,1);
+				FlxG.state.add(_gibs);
+				_gibs.x = this.x + width/2;
+				_gibs.y = this.y + height/4;
+				_gibs.restart();
+			}
 			
 			if (velocity.y == 0) { // on ground
 				
@@ -113,7 +134,7 @@ package com.adamatomic.Mode
 				}
 				_feeler.y = this.y+this.height;
 				
-				if (!_player._invisible && playerDist() < _max_player_dist && playerOnSide()) {
+				if (!_player._invisible && playerDist() < _max_player_dist && playerOnSide() && _blinded_timer <= 0) {
 					
 					acceleration.x * 10;
 					maxVelocity.x = fast_speed;
@@ -124,7 +145,7 @@ package com.adamatomic.Mode
 				}
 	
 				
-				if (!_world.collide(_feeler)) {
+				if (!_world.collide(_feeler) && _blinded_timer <= 0) {
 					acceleration.x = 0;
 					velocity.x = 0;
 					play("idle");

@@ -8,6 +8,8 @@ package com.adamatomic.Mode
 	public class SmokeBomb extends FlxSprite
 	{
 		
+		[Embed(source = "../../../Sounds/Finals/Smoke/Smoke1.mp3")] private var SmokeLand:Class;
+		
 		protected var timer:Number;
 		protected const max_timer:Number = 4;
 		
@@ -54,6 +56,7 @@ package com.adamatomic.Mode
 		
 		public function explode():void {
 			if (dead) { return; }
+			FlxG.play(SmokeLand);
 			//Gibs emitted upon explosion
 			var _gibs:FlxEmitter = new FlxEmitter(0,0,-1.5);
 			_gibs.setXVelocity(-90,90);

@@ -20,7 +20,10 @@ package com.adamatomic.Mode
 		[Embed(source = "../../../data/Marps/MultiRooms.txt", mimeType = "application/octet-stream")] private var TxtMap12:Class;
 		[Embed(source = "../../../data/Marps/Final_Countdown.txt", mimeType = "application/octet-stream")] private var TxtMap13:Class;
 		
+		
+		
 		[Embed(source="../../../data/MainTheme.mp3")] private var themeSong:Class;
+		[Embed(source="../../../Sounds/Finals/Distract1.mp3")] private var SndVictory:Class;
 		
 		[Embed(source="../../../data/tiles_all.png")] private var ImgTiles:Class;
 		
@@ -66,7 +69,7 @@ package com.adamatomic.Mode
 			_finish_door.alpha = 0;
 			_finish_door.width = 16;
 			_finish_door.height = 16;
-			_cur_level = 0;
+			_cur_level = 10;
 			
 			
 			
@@ -193,9 +196,16 @@ package com.adamatomic.Mode
 				for each ( soldier in _sm_soldiers) {
 					soldier.kill();
 				}
+				for each (arrow in _sm_arrows){
+					arrow.kill();
+				}
+				
 				_boulder.kill();
 				
+				
 				_cur_level++;
+				
+				FlxG.play(SndVictory);
 				FlxG.fade(0xff000000, 2, changeProperLevel, true);
 				_player.play("victory");
 				_player.active = false;
@@ -251,7 +261,7 @@ package com.adamatomic.Mode
 			}else if (Level == 12) {
 				MapData = new TxtMap13;
 			}else {
-				trace("That map doesn't exist");
+				FlxG.switchState(VictoryState);
 			}
 			_tilemap.loadMap(MapData, ImgTiles, 16); 
 			_backmap.loadMap(MapData, ImgTiles, 16);

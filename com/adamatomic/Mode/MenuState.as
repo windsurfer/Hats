@@ -6,7 +6,7 @@ package com.adamatomic.Mode
 	{
 		[Embed(source = "../../../data/cursor.png")] private var ImgCursor:Class;
 		
-		[Embed(source="../../../data/hats_gibs.png")] private var ImgHats:Class;
+		[Embed(source="../../../data/hats_gibs.png")] public static var ImgHats:Class;
 		[Embed(source="../../../data/menu_hit.mp3")] private var SndHit:Class;
 		[Embed(source="../../../data/menu_hit_2.mp3")] private var SndHit2:Class;
 		

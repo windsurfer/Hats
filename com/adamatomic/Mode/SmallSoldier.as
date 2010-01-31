@@ -69,9 +69,17 @@ package com.adamatomic.Mode
 					super.update();
 				return;
 			}
+			
+			
+			
+			
+			
+			
 			if (velocity.y == 0) { // on ground
 				
 				acceleration.x = 0;
+				
+				// AI part
 				
 				if (_facing == RIGHT) {
 					acceleration.x += _run_speed;

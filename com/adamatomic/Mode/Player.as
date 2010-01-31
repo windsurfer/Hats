@@ -54,6 +54,9 @@ package com.adamatomic.Mode
 			
 		}
 		
+		
+		
+		
 		override public function update():void
 		{
 			//game restart timer
@@ -173,6 +176,7 @@ package com.adamatomic.Mode
 		{
 			if(dead)
 				return;
+			super.kill();
 			FlxG.play(SndExplode);
 			FlxG.play(SndExplode2);
 			
@@ -181,7 +185,7 @@ package com.adamatomic.Mode
 			_gibs.setXVelocity(-150,150);
 			_gibs.setYVelocity(-200,0);
 			_gibs.setRotation(-720,-720);
-			_gibs.createSprites(ImgGibs,200);
+			_gibs.createSprites(ImgGibs,50);
 			FlxG.state.add(_gibs);
 			
 			_gibs.x = this.x + width/2;
@@ -194,7 +198,7 @@ package com.adamatomic.Mode
 			FlxG.quake(0.005,0.35);
 			FlxG.flash(0xff7777ff,0.35);
 
-			super.kill();
+			
 		}
 	}
 }

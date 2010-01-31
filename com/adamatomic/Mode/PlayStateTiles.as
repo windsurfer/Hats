@@ -5,7 +5,7 @@ package com.adamatomic.Mode
 	public class PlayStateTiles extends FlxState
 	{
 		[Embed(source="../../../data/mode.mp3")] private var SndMode:Class;
-		[Embed(source="../../../data/Marps/CamoIntro.txt",mimeType="application/octet-stream")] private var TxtMap:Class;
+		[Embed(source="../../../data/Marps/TestLevel.txt",mimeType="application/octet-stream")] private var TxtMap:Class;
 		[Embed(source = "../../../data/map2.txt", mimeType = "application/octet-stream")] private var TxtMap2:Class;
 		[Embed(source = "../../../data/map3.txt", mimeType = "application/octet-stream")] private var TxtMap3:Class;
 		[Embed(source = "../../../data/map4.txt", mimeType = "application/octet-stream")] private var TxtMap4:Class;
@@ -13,6 +13,8 @@ package com.adamatomic.Mode
 		
 		//major game objects
 		private var _tilemap:FlxTilemap;
+		private var _backmap:FlxTilemap;
+		private var _spikes:Array;
 		private var _bullets:Array;
 		private var _player:Player;
 		private var _sm_soldiers:Array;
@@ -23,6 +25,7 @@ package com.adamatomic.Mode
 
 			
 			//create player and bullets
+			_spikes = new Array();
 			_bullets = new Array();
 			_sm_soldiers = new Array();
 			_player = new Player(0,0,_bullets);
@@ -54,6 +57,11 @@ package com.adamatomic.Mode
 					_player.kill();
 				}
 			}
+			for each (var spike:FlxSprite in _spikes){
+				if (spike.overlaps(_player)) {
+					_player.kill();
+				}
+			}
 			
 			if(FlxG.keys.justPressed("M"))
 			{
@@ -67,12 +75,13 @@ package com.adamatomic.Mode
 			FlxG.log("ANIMATION NAME: "+Name+", FRAME: "+Frame+", FRAME INDEX: "+FrameIndex);
 		}
 		
-		private function changeLevel(Level:int):void {	
-			this._layer.destroy();
-			//_sm_soldiers.destroy();
+		private function changeLevel(Level:int):void {
+			
+			killObjects();
 			
 			_tilemap = new FlxTilemap();
-			_tilemap.collideIndex = 5;			
+			_backmap = new FlxTilemap();
+			_tilemap.collideIndex = 9;			
 			
 			var MapData:String;
 			if (Level == 0){
@@ -87,6 +96,7 @@ package com.adamatomic.Mode
 				trace("That map doesn't exist");
 			}
 			_tilemap.loadMap(MapData, ImgTiles, 16); 
+			_backmap.loadMap(MapData, ImgTiles, 16);
 			
 			
 			var player_spawn_x:int = -1;
@@ -94,21 +104,32 @@ package com.adamatomic.Mode
 			
 			for (var i:uint = 0; i < _tilemap.totalTiles; i++) {
 				var tile:uint = _tilemap.getTileByIndex(i);
-				if (tile > 20) {
+				var x_pos:int = i % _tilemap.widthInTiles * 16;
+				var y_pos:int = Math.floor(i / _tilemap.widthInTiles) * 16;
+				
+				if (tile >= 16 && tile <= 18) {
+					var spike:FlxSprite = new FlxSprite(x_pos, y_pos - 1);
+					spike.createGraphic(16, 16);
 					
-					var x_pos:int = i % _tilemap.widthInTiles * 16;
-					var y_pos:int = i / _tilemap.widthInTiles * 16;
+					_spikes.push(spike);
+				}else if (tile > 18&& tile <= 23) {
 					
-					switch (tile){
+					
+					switch (tile) {
+						
 						case 21:
 							//spawn small soldier
 							_sm_soldiers.push(new SmallSoldier(x_pos, y_pos - 32, _player, _tilemap));
-							break;
+							break;	
 						case 22:
+							//spawn small soldier
+							_sm_soldiers.push(new SmallSoldier(x_pos, y_pos - 32, _player, _tilemap));
+							break;
+						case 23:
 							player_spawn_x = x_pos;
 							player_spawn_y = y_pos - 32;
 							break;
-						case 23:
+						case 24:
 							//TODO: make an exit
 							break;
 						default:
@@ -116,6 +137,11 @@ package com.adamatomic.Mode
 							break;
 					}
 					// reset the tile to nothing
+					_tilemap.setTileByIndex(i, 0);
+					_backmap.setTileByIndex(i, 0);
+				}else if (tile > 23) {
+					
+					_backmap.setTileByIndex(i, tile);
 					_tilemap.setTileByIndex(i, 0);
 				}
 			}
@@ -138,21 +164,36 @@ package com.adamatomic.Mode
 			var fy:uint = _tilemap.height/2 - FlxG.height/2;
 			FlxG.followBounds(fx,fy,fx,fy);
 			_tilemap.follow();
-			
 			addObjects();
 
 		}
 		
 		private function addObjects():void {
+			this.add(_backmap);
 			for(var i:uint = 0; i < 8; i++)
 				this.add(_bullets[i]);
 			for each (var soldier:SmallSoldier in _sm_soldiers){
 				this.add(soldier);
 			}
-							
 			this.add(_player);
 			this.add(_player._gibs);
 			this.add(_tilemap);
+		}
+		
+		private function killObjects():void {
+			
+			var kill_plz:Array = [_bullets, _sm_soldiers];
+			for each(var array:Array in kill_plz)
+				
+				for each(var obj:FlxCore in array)
+					obj.kill();
+					obj.exists = false;
+				{
+				array = new Array();
+			}
+			
+				
+			
 		}
 	}
 }

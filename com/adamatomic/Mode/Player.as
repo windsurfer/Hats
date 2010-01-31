@@ -46,7 +46,7 @@ package com.adamatomic.Mode
 			_sound_bomb = Sound;
 			_smoke_bomb = Smoke;
 			
-			_hats_avail = new Array(Hat.SPRING_HAT, Hat.CAMO_HAT, Hat.BUNNY_HAT, Hat.SMOKE_HAT); // start without any
+			_hats_avail = new Array(Hat.SPRING_HAT, Hat.CAMO_HAT, Hat.BUNNY_HAT, Hat.SMOKE_HAT, Hat.SOUND_HAT); // start without any
 			_cur_hat = Hat.CAMO_HAT;
 			_hat = new Hat(_cur_hat, this);
 			
@@ -105,6 +105,13 @@ package com.adamatomic.Mode
 		 	if (velocity.y == 0) {
 				velocity.y -= 300;
 			}
+		}
+		
+		public function please_shoot_sound():void {
+		 	
+		}
+		public function please_shoot_smoke():void {
+		 	_smoke_bomb.shoot(x, y, (facing == RIGHT ? 400 : -400));
 		}
 		
 		override public function update():void

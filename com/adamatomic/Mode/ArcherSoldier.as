@@ -9,6 +9,8 @@ package com.adamatomic.Mode
 		[Embed(source = "../../../data/enemyArrow_with_arrow.png")] private var ImgSoldier:Class;
 		[Embed(source="../../../data/arrow.png")] public static var ImgArrow:Class;
 		
+		[Embed(source = "../../../Sounds/Finals/Shoot/5.mp3")] private var Shot1:Class;
+		
 		private var _gibs:FlxEmitter;
 		public var _arrow:FlxSprite;
 		
@@ -21,7 +23,7 @@ package com.adamatomic.Mode
 			loadGraphic(ImgSoldier,true, true,16,16);
 			
 			_arrow = Arrow;
-			_timer = cooldown*2;
+			_timer = cooldown;
 			
 			_leaves_remains = false;
 			_facing = LEFT;
@@ -40,7 +42,7 @@ package com.adamatomic.Mode
 		{
 			//super.update();
 			if (_blinded_timer > 0) {
-				_blinded_timer -= FlxG.elapsed;
+				_blinded_timer -= FlxG.elapsed/2;
 				
 				var _gibs:FlxEmitter = new FlxEmitter(0,0,-0.6);
 				_gibs.setXVelocity(-30,30);
@@ -79,6 +81,7 @@ package com.adamatomic.Mode
 		
 		public function shoot():void {
 			play("shoot");
+			FlxG.play(Shot1);
 			var _gibs:FlxEmitter = new FlxEmitter(0,0,-0.6);
 				_gibs.setXVelocity(-30,30);
 				_gibs.setYVelocity( -30, 30);

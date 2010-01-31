@@ -11,10 +11,11 @@ package com.adamatomic.Mode
 		
 		[Embed(source="../../../data/Bounce2.mp3")] private var SndJump:Class;
 		[Embed(source="../../../data/land.mp3")] private var SndLand:Class;
-		[Embed(source="../../../data/asplode.mp3")] private var SndExplode:Class;
-		[Embed(source="../../../data/menu_hit_2.mp3")] private var SndExplode2:Class;
-		[Embed(source="../../../data/hurt.mp3")] private var SndHurt:Class;
-		[Embed(source="../../../data/jam.mp3")] private var SndJam:Class;
+		[Embed(source = "../../../data/asplode.mp3")] private var SndExplode:Class;
+		
+		[Embed(source="../../../Sounds/Finals/NeatShit.mp3")] private var SndShot:Class;
+		[Embed(source = "../../../Sounds/Finals/Smoke/Smoke4.mp3")] private var SmokeShot:Class;
+		[Embed(source = "../../../Sounds/Finals/Smoke/Smoke2.mp3")] private var Cloak:Class;
 		
 		
 		private var _jumpPower:int;
@@ -87,6 +88,9 @@ package com.adamatomic.Mode
 			if (velocity.y != 0) {
 				return;
 			}
+			
+			FlxG.play(Cloak);
+			
 		 	velocity.x = 0;
 			_invisible = true;
 			this.alpha = 0.2;
@@ -106,6 +110,7 @@ package com.adamatomic.Mode
 		
 		public function please_jump_high():void {
 		 	if (velocity.y == 0) {
+				FlxG.play(SndJump);
 				velocity.y -= 300;
 			}
 		}
@@ -114,12 +119,14 @@ package com.adamatomic.Mode
 		 	if (_shoot_timer<=0){
 				_sound_bomb.shoot(x, y, (facing == RIGHT ? 200 : -200));
 				_shoot_timer = 1;
+				FlxG.play(SndShot);
 			}
 		}
 		public function please_shoot_smoke():void {
 			if (_shoot_timer<=0){
 				_smoke_bomb.shoot(x, y, (facing == RIGHT ? 400 : -400));
 				_shoot_timer = 1;
+				FlxG.play(SmokeShot);
 			}
 		}
 		
@@ -148,7 +155,7 @@ package com.adamatomic.Mode
 			if(FlxG.keys.justPressed("X") && !velocity.y)
 			{
 				velocity.y = -_jumpPower;
-				FlxG.play(SndJump);
+				
 			}
 			
 			// CHANGE HAT
@@ -228,20 +235,6 @@ package com.adamatomic.Mode
 		}
 		
 		
-		override public function hurt(Damage:Number):void
-		{
-			Damage = 0;
-			if(flickering())
-				return;
-			FlxG.play(SndHurt);
-			flicker(1.3);
-			if(FlxG.score > 1000) FlxG.score -= 1000;
-			if(velocity.x > 0)
-				velocity.x = -maxVelocity.x;
-			else
-				velocity.x = maxVelocity.x;
-			super.hurt(Damage);
-		}
 		
 		override public function kill():void
 		{
@@ -249,7 +242,6 @@ package com.adamatomic.Mode
 				return;
 			super.kill();
 			FlxG.play(SndExplode);
-			FlxG.play(SndExplode2);
 			
 			_hat.kill();
 			_hat.destroy();

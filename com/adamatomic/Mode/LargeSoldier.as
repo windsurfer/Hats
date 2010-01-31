@@ -7,7 +7,12 @@ package com.adamatomic.Mode
 	public class LargeSoldier extends SmallSoldier
 	{
 		[Embed(source="../../../data/enemy_large.png")] private var ImgSoldier:Class;
-		[Embed(source="../../../data/enemy_large_gibs.png")] private var ImgGibs:Class;
+		[Embed(source = "../../../data/enemy_large_gibs.png")] private var ImgGibs:Class;
+		
+		[Embed(source = "../../../Sounds/Finals/LargeEnemy/Hurt1.mp3")] private var Hurt1:Class;
+		[Embed(source="../../../Sounds/Finals/LargeEnemy/Hurt2.mp3")] private var Hurt2:Class;
+		[Embed(source="../../../Sounds/Finals/LargeEnemy/Hurt3.mp3")] private var Hurt3:Class;
+
 		
 		private var _gibs:FlxEmitter;
 		
@@ -42,11 +47,29 @@ package com.adamatomic.Mode
 			reset(x,y);
 		}
 		
+		private function make_snd():void {
+			var rand:Number = FlxG.random();
+			if (rand < 0.33) {
+				FlxG.play(Hurt1);
+			}else if (rand < 0.66) {
+				FlxG.play(Hurt2);
+			}else {
+				FlxG.play(Hurt3);
+			}
+		}
+		
+		override public function blind():void 
+		{
+			super.blind();
+			make_snd();
+		}
+		
 		override public function kill():void
 		{
 			if(dead)
 				return;
 			
+			make_snd();
 			//Gibs emitted upon death
 			_gibs = new FlxEmitter(0,0,-2.5);
 			_gibs.setXVelocity(-150,150);

@@ -33,6 +33,9 @@ package com.adamatomic.Mode
 		private var _smoke_bomb:SmokeBomb;
 		private var _sound_bomb:SoundBomb;
 		
+		private var _boulder:Boulder;
+		
+		
 		private var _finish_door:FlxSprite;
 		private var _cur_level:Number;
 		
@@ -51,8 +54,12 @@ package com.adamatomic.Mode
 			
 			
 			_finish_door = new FlxSprite(0, 0);
-			_cur_level = 0;
+			_cur_level = 3;
 			
+			
+			
+			_boulder = new Boulder(0, 0);
+			_boulder.kill();
 			
 			_sound_bomb = new SoundBomb();
 			_smoke_bomb = new SmokeBomb();
@@ -90,6 +97,12 @@ package com.adamatomic.Mode
 			_tilemap.collide(_smoke_bomb);
 			_tilemap.collide(_sound_bomb);
 			
+			if (!_boulder.dead) {
+				_tilemap.collide(_boulder);
+				if (_boulder.overlaps(_player)) {
+					_player.kill();
+				}
+			}
 			
 			
 			for each (var soldier:SmallSoldier in _sm_soldiers){
@@ -167,6 +180,8 @@ package com.adamatomic.Mode
 				MapData = new TxtMap3;
 			}else if (Level == 3) {
 				MapData = new TxtMap4;
+				_boulder = new Boulder(64, 128);
+				this.add(_boulder);
 			}else if (Level == 4) {
 				MapData = new TxtMap5;
 			}else if (Level == 5) {

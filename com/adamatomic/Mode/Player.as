@@ -65,8 +65,8 @@ package com.adamatomic.Mode
 		
 		
 		private function placeHat():void {
-			_hat.x = this.x - this.width / 2 + _hat.width / 2;
-			_hat.y = this.y - this.height / 2 + _hat.height / 2;
+			_hat.x = this.x - 8 + (facing == RIGHT ? 1 :0);
+			_hat.y = this.y - this.height / 2 + _hat.height / 2 - 11;
 			_hat.facing = this.facing;
 		}
 		
@@ -78,7 +78,6 @@ package com.adamatomic.Mode
 			if(dead)
 			{ return; }
 		
-			placeHat();
 			
 			//MOVEMENT
 			acceleration.x = 0;
@@ -173,13 +172,9 @@ package com.adamatomic.Mode
 				
 			//UPDATE POSITION AND ANIMATION
 			super.update();
-
-			//Jammed, can't fire!
-			if(flickering())
-			{
-				if(FlxG.keys.justPressed("C"))
-					FlxG.play(SndJam);
-			}
+			
+			
+			placeHat(); // DO IT LAST
 		}
 		
 		override public function hitFloor(Contact:FlxCore=null):Boolean

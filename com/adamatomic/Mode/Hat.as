@@ -24,9 +24,9 @@
 		public function Hat(WhichHat:String)
 		{
 			if (WhichHat == CAMO_HAT){
-				loadGraphic(ImgCamo, true, true, 23, 23);
+				loadGraphic(ImgCamo, true, true, 28, 23);
 				addAnimation("idle", [0]);
-				addAnimation("move", [1, 0], 12);
+				addAnimation("move", [1, 0], 6);
 			}else {
 				createGraphic(23, 23);
 			}

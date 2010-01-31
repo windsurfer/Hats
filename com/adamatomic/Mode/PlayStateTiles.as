@@ -252,20 +252,23 @@ package com.adamatomic.Mode
 					
 					switch (tile) {
 						case 19:
-							//spawn archer soldier
-							var arrow:FlxSprite = new FlxSprite(0, 0);
-							arrow.loadGraphic(ArcherSoldier.ImgArrow, false, true);
-							arrow.kill();
-							_sm_arrows.push(arrow);
-							_sm_soldiers.push(new ArcherSoldier(x_pos, y_pos, _player, _tilemap, arrow));
+							
+							//spawn small soldier
+							_sm_soldiers.push(new SmallSoldier(x_pos, y_pos - 16, _player, _tilemap));
+							
 							break;
 						case 20:
 							//spawn small soldier
 							_sm_soldiers.push(new LargeSoldier(x_pos, y_pos - 32, _player, _tilemap));
 							break;
 						case 21:
-							//spawn small soldier
-							_sm_soldiers.push(new SmallSoldier(x_pos, y_pos - 16, _player, _tilemap));
+							//spawn archer soldier
+							var arrow:FlxSprite = new FlxSprite(0, 0);
+							arrow.loadGraphic(ArcherSoldier.ImgArrow, false, true);
+							arrow.kill();
+							_sm_arrows.push(arrow);
+							_sm_soldiers.push(new ArcherSoldier(x_pos, y_pos, _player, _tilemap, arrow));
+							
 							break;	
 						case 22:
 							// EXIT

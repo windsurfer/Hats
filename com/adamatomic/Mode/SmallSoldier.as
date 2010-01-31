@@ -13,10 +13,10 @@ package com.adamatomic.Mode
 		
 		private var _gibs:FlxEmitter;
 		private var _player:Player;
-		private var _timer:Number;
-		private var _run_speed:Number;
-		private var _stand_timer:Number;
-		private var _world:FlxTilemap;
+		protected var _timer:Number;
+		protected var _run_speed:Number;
+		protected var _stand_timer:Number;
+		protected var _world:FlxTilemap;
 		public var _feeler:FlxSprite;
 		static private var _cb:uint = 0;
 		
@@ -89,7 +89,7 @@ package com.adamatomic.Mode
 					acceleration.x -= _run_speed;
 					_feeler.x = this.x -this.width;
 				}
-				_feeler.y = this.y+32;
+				_feeler.y = this.y+this.height;
 				
 	
 				

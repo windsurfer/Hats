@@ -13,6 +13,7 @@ package com.adamatomic.Mode
 		[Embed(source="../../../data/hurt.mp3")] private var SndHurt:Class;
 		[Embed(source="../../../data/jam.mp3")] private var SndJam:Class;
 		
+		
 		private var _jumpPower:int;
 		private var _bullets:Array;
 		private var _curBullet:uint;
@@ -21,11 +22,20 @@ package com.adamatomic.Mode
 		private var _down:Boolean;
 		public var _gibs:FlxEmitter;
 		
+
+		
+		public var _hats_avail:Array; // strings
+		public var _cur_hat:String;
+		public var _hat:Hat;
+		
 		public function Player(X:int,Y:int,Bullets:Array)
 		{
 			super(X,Y);
 			loadGraphic(ImgSpaceman,true,true,16,32);
 			
+			_hats_avail = new Array(Hat.CAMO_HAT); // start without any
+			_cur_hat = Hat.NULL_HAT;
+			_hat = new Hat(_cur_hat);
 			
 			//bounding box tweaks
 			width = 13;
@@ -41,7 +51,7 @@ package com.adamatomic.Mode
 			maxVelocity.x = runSpeed;
 			maxVelocity.y = 200;
 			
-			//animations
+			//animations 
 			addAnimation("idle", [0]);
 			addAnimation("run", [1, 2, 3, 0], 12);
 			addAnimation("jump", [4]);
@@ -53,6 +63,10 @@ package com.adamatomic.Mode
 			
 		}
 		
+		
+		private function placeHat():void {
+			_hat.x = this.x - this.width/2 + _hat.width/;
+		}
 		
 		
 		
@@ -85,6 +99,16 @@ package com.adamatomic.Mode
 			if(FlxG.keys.UP) _up = true;
 			else if(FlxG.keys.DOWN && velocity.y) _down = true;
 			
+			
+			// CHANGE HAT
+			if (FlxG.keys.justReleased("Z")) {
+				if (_hats_avail.length > 0) {
+					_cur_hat = _hats_avail[(_hats_avail.indexOf(_cur_hat) + 1) % _hats_avail.length];
+					
+					_hat = new Hat(_cur_hat);
+				}
+			}
+			
 			//ANIMATION
 			if(velocity.y != 0)
 			{
@@ -93,13 +117,22 @@ package com.adamatomic.Mode
 			else if(velocity.x == 0)
 			{
 				play("idle");
+				_hat.stop();
 			}
 			else
 			{
 				play("run");
+				_hat.animate();
 			}
 			
-			//SHOOTING
+			
+			
+			
+			
+			
+			
+			
+			//ACTION
 			if(!flickering() && FlxG.keys.justPressed("C"))
 			{
 				var bXVel:int = 0;

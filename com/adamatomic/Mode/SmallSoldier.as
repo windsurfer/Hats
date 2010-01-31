@@ -21,6 +21,9 @@ package com.adamatomic.Mode
 		static private var _cb:uint = 0;
 		protected var _max_player_dist:Number;
 		
+		protected var slow_speed:Number;
+		protected var fast_speed:Number;
+		
 		public function SmallSoldier(xPos:int,yPos:int,ThePlayer:Player, TheWorld:FlxTilemap)
 		{
 			super(xPos,yPos);
@@ -37,11 +40,15 @@ package com.adamatomic.Mode
 			offset.x = 1;
 			offset.y = -1;
 			
-			_max_player_dist = 64;
+			_max_player_dist = 128;
 			
 			
 			acceleration.y = 420;
-			_run_speed = 32;
+			
+			slow_speed = 32;
+			fast_speed = 96;
+			
+			_run_speed = slow_speed;
 			drag.x = 120;
 			drag.y = 80;
 			maxVelocity.x = _run_speed;
@@ -108,10 +115,11 @@ package com.adamatomic.Mode
 				
 				if (playerDist() < _max_player_dist && playerOnSide()) {
 					
-					acceleration.x * 2;
-					
+					acceleration.x * 10;
+					maxVelocity.x = fast_speed;
 					play("angry");
 				}else {
+					maxVelocity.x = slow_speed;
 					play("walking");
 				}
 	
@@ -122,7 +130,7 @@ package com.adamatomic.Mode
 					_timer += FlxG.elapsed;
 				}else {
 					_timer = 0;
-					play("walking");
+					
 				}
 				
 				if (_timer > 2) {

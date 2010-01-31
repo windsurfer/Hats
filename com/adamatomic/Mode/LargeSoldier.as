@@ -24,10 +24,13 @@ package com.adamatomic.Mode
 			offset.y = 8;
 			
 			acceleration.y = 420;
-			_run_speed = 16;
+			slow_speed = 16;
+			fast_speed = 64;
+			
+			_run_speed = slow_speed;
 			drag.x = 120;
 			drag.y = 80;
-			maxVelocity.x = _run_speed;
+			maxVelocity.x = slow_speed;
 			_feeler = new FlxSprite();
 			
 			addAnimation("idle", [0]);

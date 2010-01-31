@@ -171,7 +171,7 @@ package com.adamatomic.Mode
 					arrow.x = 0;
 					arrow.y = 0;
 				}
-				if (arrow.overlaps(_player)) {
+				if (arrow.overlaps(_player) && !_player._invisible) {
 					_player.kill();
 				}
 			}

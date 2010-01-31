@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.adamatomic.Mode 
 {
 	/**
@@ -53,5 +54,4 @@ package com.adamatomic.Mode
 		}
 		
 	}
-
 }

@@ -98,29 +98,29 @@ package com.adamatomic.Mode
 				add(t1);
 				
 				//flixel button
-				this.add((new FlxSprite(t1m+1,FlxG.height/3+53)).createGraphic(106,19,0xff131c1b));
+				this.add((new FlxSprite(t1m+1,FlxG.height/3+53)).createGraphic(106,19,0x77ffffff));
 				b = new FlxButton(t1m+2,FlxG.height/3+54,onFlixel);
-				b.loadGraphic((new FlxSprite()).createGraphic(104,15,0xff3a5c39),(new FlxSprite()).createGraphic(104,15,0xff729954));
+				b.loadGraphic((new FlxSprite()).createGraphic(104,15,0x77ffffff),(new FlxSprite()).createGraphic(104,15,0xff000000));
 				t1 = new FlxText(15,1,100,"www.flixel.org");
-				t1.color = 0x729954;
+				t1.color = 0x77ffffff;
 				t2 = new FlxText(t1.x,t1.y,t1.width,t1.text);
-				t2.color = 0xd8eba2;
+				t2.color = 0x77ffffff;
 				b.loadText(t1,t2);
 				add(b);
 				
 				
 				//play button
-				this.add((new FlxSprite(t1m+1,FlxG.height/3+137)).createGraphic(106,19,0xff131c1b));
+				this.add((new FlxSprite(t1m+1,FlxG.height/3+137)).createGraphic(106,19,0x77ffffff));
 				t1 = new FlxText(t1m,FlxG.height/3+139,110,"PRESS X+C TO PLAY.");
-				t1.color = 0x729954;
+				t1.color = 0x77ffffff;
 				t1.alignment = "center";
 				add(t1);
 				_b = new FlxButton(t1m+2,FlxG.height/3+138,onButton);
-				_b.loadGraphic((new FlxSprite()).createGraphic(104,15,0xff3a5c39),(new FlxSprite()).createGraphic(104,15,0xff729954));
+				_b.loadGraphic((new FlxSprite()).createGraphic(104,15,0xffffffff),(new FlxSprite()).createGraphic(104,15,0xff000000));
 				t1 = new FlxText(25,1,100,"CLICK HERE");
-				t1.color = 0x729954;
+				t1.color = 0x77000000;
 				t2 = new FlxText(t1.x,t1.y,t1.width,t1.text);
-				t2.color = 0xd8eba2;
+				t2.color = 0x77ffffff;
 				_b.loadText(t1,t2);
 				add(_b);
 			}

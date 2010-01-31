@@ -62,7 +62,9 @@ package com.adamatomic.Mode
 			
 			_finish_door = new FlxSprite(0, 0);
 			_finish_door.alpha = 0;
-			_cur_level = 4;
+			_finish_door.width = 16;
+			_finish_door.height = 16;
+			_cur_level = 0;
 			
 			
 			
@@ -193,6 +195,7 @@ package com.adamatomic.Mode
 				
 				_cur_level++;
 				FlxG.fade(0xff000000, 2, changeProperLevel, true);
+				_player.play("victory");
 				_player.active = false;
 			}
 			

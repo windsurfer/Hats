@@ -64,7 +64,8 @@ package com.adamatomic.Mode
 		{
 			if(dead)
 			{
-				if(finished) exists = false;
+				if (finished) 
+					exists = false;
 				else
 					super.update();
 				return;

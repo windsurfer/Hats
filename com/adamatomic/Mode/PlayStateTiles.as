@@ -186,6 +186,8 @@ package com.adamatomic.Mode
 			var fy:uint = _tilemap.height/2 - FlxG.height/2;
 			FlxG.followBounds(fx,fy,fx,fy);
 			_tilemap.follow();
+			
+			FlxG.follow(_player,2.5);
 			addObjects();
 
 		}
@@ -211,8 +213,9 @@ package com.adamatomic.Mode
 				}
 				kill_plz[i] = new Array();
 			}
+			this._layer.destroy();
 			
-				
+			_player = new Player(0,0,_bullets);
 			
 		}
 	}

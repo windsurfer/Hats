@@ -249,7 +249,7 @@ package com.adamatomic.Mode
 			}else if (Level == 12) {
 				MapData = new TxtMap13;
 			}else {
-				trace("That map doesn't exist");
+				FlxG.switchState(VictoryState);
 			}
 			_tilemap.loadMap(MapData, ImgTiles, 16); 
 			_backmap.loadMap(MapData, ImgTiles, 16);

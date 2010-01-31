@@ -4,7 +4,7 @@ package com.adamatomic.Mode
 
 	public class Player extends FlxSprite
 	{
-		[Embed(source="../../../data/wizard.png")] private var ImgSpaceman:Class;
+		[Embed(source="../../../data/wizard.png")] public static var ImgSpaceman:Class;
 		[Embed(source = "../../../data/wizard_gibs.png")] private var ImgGibs:Class;
 		[Embed(source="../../../data/smoke_gibs.png")] public static var ImgSmoke:Class;
 		

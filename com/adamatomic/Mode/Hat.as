@@ -117,5 +117,4 @@ package com.adamatomic.Mode
 		}
 		
 	}
-
 }

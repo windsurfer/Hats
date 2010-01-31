@@ -13,6 +13,6 @@ Sound+Camo ---- Sound+Camo.txt
 SuperJump ---- SuperJump.txt
 Sound_Camo_Smoke ---- Sound_Camo_Smoke.txt
 InvisiBlocks ---- InvisiBlocks.txt
-Sound,Smoke,Bunny ---- 
+Sound,Smoke,Bunny ---- Smoke_Sound_Bunny.txt
 Multi_rooms ---- MultiRooms.txt
 FINAL_COUNTDOWN ---- Final_Countdown.txt

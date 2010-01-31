@@ -211,12 +211,6 @@ package com.adamatomic.Mode
 			
 			
 			
-			//ACTION
-			if(FlxG.keys.justPressed("S"))
-			{
-				velocity.y -= 96;
-			}
-			
 			if(FlxG.keys.justPressed("C"))
 			{
 				// Activate hat!

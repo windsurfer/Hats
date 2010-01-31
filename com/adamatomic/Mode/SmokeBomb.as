@@ -9,6 +9,7 @@ package com.adamatomic.Mode
 	{
 		
 		protected var timer:Number;
+		protected const max_timer:Number = 4;
 		
 		public function SmokeBomb()
 		{
@@ -30,6 +31,11 @@ package com.adamatomic.Mode
 		
 		override public function update():void {
 			if (dead) { return; }
+			if (timer < max_timer) {
+				timer += FlxG.elapsed;
+			}else {
+				explode();
+			}
 			
 			var _gibs:FlxEmitter = new FlxEmitter(0,0,-0.2);
 			_gibs.setXVelocity(-90,90);
@@ -66,6 +72,7 @@ package com.adamatomic.Mode
 		public function revive():void {
 			exists = true;
 			dead = false;
+			timer = 0;
 		}
 	}
 }

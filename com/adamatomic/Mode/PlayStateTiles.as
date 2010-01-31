@@ -69,6 +69,8 @@ package com.adamatomic.Mode
 			_tilemap.collide(_player);
 			_tilemap.collideArray(_sm_soldiers);
 			_tilemap.collide(_smoke_bomb);
+			_tilemap.collide(_sound_bomb);
+			
 			
 			
 			for each (var soldier:SmallSoldier in _sm_soldiers){
@@ -100,6 +102,14 @@ package com.adamatomic.Mode
 					if (soldier2.overlaps(spike2)) {
 						soldier2.kill();
 					}
+				}
+			}
+			
+			
+			if (_sound_bomb.sound_alarm) {
+				_sound_bomb.sound_alarm = false;
+				for each ( soldier in _sm_soldiers) {
+					soldier.alarm(_sound_bomb.x, _sound_bomb.y);
 				}
 			}
 			
@@ -229,6 +239,7 @@ package com.adamatomic.Mode
 			this.add(_player._hat);
 			this.add(_tilemap);
 			this.add(_smoke_bomb);
+			this.add(_sound_bomb);
 		}
 		
 		private function killObjects():void {

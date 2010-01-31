@@ -27,6 +27,7 @@ package com.adamatomic.Mode
 		static public const _blinded_time:Number = 2;
 		protected var _blinded_timer:Number;
 		
+		static public const _alarm_dist:Number = 128;
 		
 		public function SmallSoldier(xPos:int,yPos:int,ThePlayer:Player, TheWorld:FlxTilemap)
 		{
@@ -69,6 +70,13 @@ package com.adamatomic.Mode
 		
 		public function blind():void {
 			_blinded_timer = _blinded_time;
+		}
+		
+		public function alarm(alarm_x:Number, alarm_y:Number):void {
+			if (Math.sqrt( Math.pow(x - alarm_x, 2) + Math.pow(y - alarm_y, 2)) <= _alarm_dist) {
+				facing = (alarm_x > x) ? RIGHT : LEFT;
+			}
+			
 		}
 		
 		override public function hitWall(Contact:FlxCore = null):Boolean

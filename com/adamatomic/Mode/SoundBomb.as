@@ -9,7 +9,7 @@
 	{
 		
 		
-		[Embed(source="../../../data/music_gibs.png")] private var ImgSound:Class;
+		[Embed(source="../../../data/music_gibs.png")] public static var ImgSound:Class;
 		
 		protected var timer:Number;
 		protected const max_timer:Number = 1.5;

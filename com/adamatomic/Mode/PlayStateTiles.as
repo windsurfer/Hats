@@ -20,6 +20,8 @@ package com.adamatomic.Mode
 		[Embed(source = "../../../data/Marps/MultiRooms.txt", mimeType = "application/octet-stream")] private var TxtMap12:Class;
 		[Embed(source = "../../../data/Marps/Final_Countdown.txt", mimeType = "application/octet-stream")] private var TxtMap13:Class;
 		
+		[Embed(source="../../../data/MainTheme.mp3")] private var themeSong:Class;
+		
 		[Embed(source="../../../data/tiles_all.png")] private var ImgTiles:Class;
 		
 		//major game objects
@@ -62,7 +64,9 @@ package com.adamatomic.Mode
 			
 			_finish_door = new FlxSprite(0, 0);
 			_finish_door.alpha = 0;
-			_cur_level = 4;
+			_finish_door.width = 16;
+			_finish_door.height = 16;
+			_cur_level = 0;
 			
 			
 			
@@ -80,8 +84,8 @@ package com.adamatomic.Mode
 			changeLevel(_cur_level);
 			
 			//The music in this mode is positional - it fades out toward the edges of the level
-			var s:FlxSound = FlxG.play(SndMode,1,true);
-			s.proximity(320,320,_player,160);
+			var s:FlxSound = FlxG.play(themeSong,1,true);
+			s.play();
 		}
 
 		override public function update():void
@@ -104,6 +108,8 @@ package com.adamatomic.Mode
 			_tilemap.collideArray(_sm_soldiers);
 			_tilemap.collide(_smoke_bomb);
 			_tilemap.collide(_sound_bomb);
+			
+			
 			
 			
 			if (!_boulder.dead) {
@@ -146,6 +152,22 @@ package com.adamatomic.Mode
 				}
 			}
 			for each (var arrow:FlxSprite in _sm_arrows) {
+				if (_tilemap.collide(arrow)){
+					arrow.kill();
+					var _gibs:FlxEmitter = new FlxEmitter(0,0,-0.6);
+					_gibs.setXVelocity(-30,30);
+					_gibs.setYVelocity( -30, 30);
+					_gibs.gravity = -100;
+					_gibs.setRotation(-180,-180);
+					_gibs.createSprites(Player.ImgSmoke,2);
+					FlxG.state.add(_gibs);
+					_gibs.x = arrow.x + width/2;
+					_gibs.y = arrow.y + height/4;
+					_gibs.restart();
+					
+					arrow.x = 0;
+					arrow.y = 0;
+				}
 				if (arrow.overlaps(_player)) {
 					_player.kill();
 				}
@@ -175,6 +197,7 @@ package com.adamatomic.Mode
 				
 				_cur_level++;
 				FlxG.fade(0xff000000, 2, changeProperLevel, true);
+				_player.play("victory");
 				_player.active = false;
 			}
 			
@@ -252,20 +275,23 @@ package com.adamatomic.Mode
 					
 					switch (tile) {
 						case 19:
-							//spawn archer soldier
-							var arrow:FlxSprite = new FlxSprite(0, 0);
-							arrow.loadGraphic(ArcherSoldier.ImgArrow, false, true);
-							arrow.kill();
-							_sm_arrows.push(arrow);
-							_sm_soldiers.push(new ArcherSoldier(x_pos, y_pos, _player, _tilemap, arrow));
+							
+							//spawn small soldier
+							_sm_soldiers.push(new SmallSoldier(x_pos, y_pos - 16, _player, _tilemap));
+							
 							break;
 						case 20:
 							//spawn small soldier
 							_sm_soldiers.push(new LargeSoldier(x_pos, y_pos - 32, _player, _tilemap));
 							break;
 						case 21:
-							//spawn small soldier
-							_sm_soldiers.push(new SmallSoldier(x_pos, y_pos - 16, _player, _tilemap));
+							//spawn archer soldier
+							var arrow:FlxSprite = new FlxSprite(0, 0);
+							arrow.loadGraphic(ArcherSoldier.ImgArrow, false, true);
+							arrow.kill();
+							_sm_arrows.push(arrow);
+							_sm_soldiers.push(new ArcherSoldier(x_pos, y_pos, _player, _tilemap, arrow));
+							
 							break;	
 						case 22:
 							// EXIT

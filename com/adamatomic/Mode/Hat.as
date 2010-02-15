@@ -32,7 +32,7 @@ package com.adamatomic.Mode
 		
 		public var whatami:String;
 		
-		public function Hat(WhichHat:String, PlayerRef:Player)
+		public function Hat(WhichHat:String, PlayerRef:Player, for_gui:Boolean = false )
 		{
 			_player = PlayerRef;
 			timer = 0;
@@ -44,7 +44,7 @@ package com.adamatomic.Mode
 			}else if (WhichHat == BUNNY_HAT){
 				loadGraphic(ImgBunny, true, true, 28, 23);
 				addAnimation("idle", [0]);
-				addAnimation("move", [1, 0], 6);
+				addAnimation("move", [1, 0], 12);
 			}else if (WhichHat == SPRING_HAT){
 				loadGraphic(ImgSpring, true, true, 28, 23);
 				addAnimation("idle", [0]);
@@ -63,14 +63,16 @@ package com.adamatomic.Mode
 			
 			whatami = WhichHat;
 			
-			FlxG.state.add(this);
+			if (!for_gui){
+				FlxG.state.add(this);
+			}
 		}
 		
 		public function run():void {
 			if (whatami == CAMO_HAT) {
 				_player.go_invisible();
 			}else if (whatami == BUNNY_HAT) {
-				// nothing
+				_player.please_jump();
 			}else if (whatami == SPRING_HAT) {
 				// jump!
 				_player.please_jump_high();
@@ -83,6 +85,12 @@ package com.adamatomic.Mode
 			}else {
 				
 			}
+		}
+		
+		public function isa(hat_type:Object):Boolean {
+			// tests if this hat is of type hat_type
+			return (this.whatami == hat_type);
+			
 		}
 		
 		override public function update():void 

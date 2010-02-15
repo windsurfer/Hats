@@ -67,8 +67,8 @@ package com.adamatomic.Mode
 			
 			_finish_door = new FlxSprite(0, 0);
 			_finish_door.alpha = 0;
-			_finish_door.width = 16;
-			_finish_door.height = 16;
+			_finish_door.width = 1;
+			_finish_door.height = 1;
 			_cur_level = 0;
 			
 			
@@ -115,6 +115,7 @@ package com.adamatomic.Mode
 			
 			
 			
+			
 			if (!_boulder.dead) {
 				_tilemap.collide(_boulder);
 				if (_boulder.overlaps(_player)) {
@@ -123,6 +124,7 @@ package com.adamatomic.Mode
 			}
 			
 			for each (var dead_block:DeadLargeSoldier in _dead_blocks) {
+				//_tilemap.collide(dead_block);
 				dead_block.collide(_player);
 			}
 			
@@ -212,12 +214,6 @@ package com.adamatomic.Mode
 			}
 			
 		}
-		
-		private function animationCallbackTest(Name:String, Frame:uint, FrameIndex:uint):void
-		{
-			FlxG.log("ANIMATION NAME: "+Name+", FRAME: "+Frame+", FRAME INDEX: "+FrameIndex);
-		}
-		
 		private function changeProperLevel():void {
 			FlxG.fade(0x00000000, 1, null, true);
 			changeLevel(_cur_level);
@@ -276,11 +272,11 @@ package com.adamatomic.Mode
 				var y_pos:int = Math.floor(i / _tilemap.widthInTiles) * 16;
 				
 				if (tile >= 16 && tile <= 18) {
-					var spike:FlxSprite = new FlxSprite(x_pos, y_pos - 1);
+					var spike:FlxSprite = new FlxSprite(x_pos, y_pos + 8);
 					spike.createGraphic(16, 16);
-					
+					_tilemap.setTileByIndex(i, 0);
 					_spikes.push(spike);
-				}else if (tile > 18&& tile <= 23) {
+				}else if (tile > 18&& tile <= 25) {
 					
 					
 					switch (tile) {
@@ -305,8 +301,8 @@ package com.adamatomic.Mode
 							break;	
 						case 22:
 							// EXIT
-							_finish_door.x = x_pos;
-							_finish_door.y = y_pos;
+							//_finish_door.x = x_pos;
+							//_finish_door.y = y_pos;
 							break;
 						case 23:
 							// SPAWN
@@ -314,7 +310,17 @@ package com.adamatomic.Mode
 							player_spawn_y = y_pos - 16;
 							break;
 						case 24:
-							//WHAT IS THIS
+							// top of exit door
+							
+							break;
+								
+						case 25:
+							// bottom of exit door
+							
+							_finish_door.x = x_pos + 8;
+							_finish_door.y = y_pos + 8; // plus 8 to center it
+							
+							
 							break;
 						default:
 							trace("Shouldn't be here");
@@ -323,7 +329,9 @@ package com.adamatomic.Mode
 					// reset the tile to nothing
 					_tilemap.setTileByIndex(i, 0);
 					_backmap.setTileByIndex(i, 0);
-				}else if (tile > 23) {
+				}
+				
+				if (tile > 23) {
 					
 					_backmap.setTileByIndex(i, tile);
 					_tilemap.setTileByIndex(i, 0);
@@ -379,6 +387,10 @@ package com.adamatomic.Mode
 			for each (var arrow:FlxSprite in _sm_arrows){
 				this.add(arrow);
 			}
+			
+			
+			//always add last
+			_player.add_gui();
 		}
 		
 		private function killObjects():void {

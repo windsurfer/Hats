@@ -36,7 +36,7 @@ package com.adamatomic.Mode
 			if (timer < max_timer) {
 				timer += FlxG.elapsed;
 			}else {
-				explode();
+				kill();
 			}
 			
 			var _gibs:FlxEmitter = new FlxEmitter(0,0,-0.2);

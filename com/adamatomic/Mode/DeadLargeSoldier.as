@@ -1,5 +1,6 @@
 ﻿package com.adamatomic.Mode 
 {
+	import flash.geom.Point;
 	import org.flixel.*;
 	/**
 	 * ...
@@ -13,9 +14,13 @@
 		
 		public function DeadLargeSoldier(x_pos:Number, y_pos:Number) 
 		{
-			super(x_pos, y_pos+32);
+			super(x_pos, y_pos+24);
 			loadGraphic(ImgBlock, true, true, 48, 15);
+			height = 2;
+			
 			FlxG.state.add(this);
+			fixed = true;
+			//acceleration.y = 480;
 		}
 		
 	}

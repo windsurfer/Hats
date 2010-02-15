@@ -26,7 +26,7 @@ package com.adamatomic.Mode
 			_e.setYVelocity( -2000, -100);
 			
 			_e.setRotation(-360, 360);
-			_e.createSprites(ImgHats,500);
+			_e.createSprites(ImgHats,100);
 			add(_e);
 				
 			_t1 = new FlxText(FlxG.width,FlxG.height/3,80,"ha");
@@ -99,9 +99,9 @@ package com.adamatomic.Mode
 				
 				//flixel button
 				this.add((new FlxSprite(t1m+1,FlxG.height/3+53)).createGraphic(106,19,0x77ffffff));
-				b = new FlxButton(t1m+2,FlxG.height/3+54,onFlixel);
-				b.loadGraphic((new FlxSprite()).createGraphic(104,15,0x77ffffff),(new FlxSprite()).createGraphic(104,15,0xff000000));
-				t1 = new FlxText(15,1,100,"www.flixel.org");
+				b = new FlxButton(t1m-10,FlxG.height/3+54,onFlixel);
+				b.loadGraphic((new FlxSprite()).createGraphic(114,15,0x77ffffff),(new FlxSprite()).createGraphic(114,15,0xff000000));
+				t1 = new FlxText(2,1,130,"special thanks to flixel");
 				t1.color = 0x77ffffff;
 				t2 = new FlxText(t1.x,t1.y,t1.width,t1.text);
 				t2.color = 0x77ffffff;
@@ -140,11 +140,6 @@ package com.adamatomic.Mode
 		private function onFlixel():void
 		{
 			FlxG.openURL("http://flixel.org");
-		}
-		
-		private function onDanny():void
-		{
-			FlxG.openURL("http://dbsoundworks.com");
 		}
 		
 		private function onButton():void

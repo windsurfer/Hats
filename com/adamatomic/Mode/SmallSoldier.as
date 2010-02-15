@@ -26,7 +26,9 @@ package com.adamatomic.Mode
 		static public const _blinded_time:Number = 3;
 		protected var _blinded_timer:Number;
 		
-		static public const _alarm_dist:Number = 128;
+		protected var _angry_timer:Number;
+		
+		static public const _alarm_dist:Number = 256;
 		
 		public var _leaves_remains:Boolean;
 		
@@ -42,11 +44,12 @@ package com.adamatomic.Mode
 			else _facing = LEFT;
 			_stand_timer = 0;
 			_blinded_timer = 0;
+			_angry_timer = 0;
 			
 			width = 16;
-			height = 32;
+			height = 28;
 			offset.x = 1;
-			offset.y = -1;
+			offset.y = 3;
 			
 			_max_player_dist = 128;
 			
@@ -77,12 +80,16 @@ package com.adamatomic.Mode
 		public function alarm(alarm_x:Number, alarm_y:Number):void {
 			if (Math.sqrt( Math.pow(x - alarm_x, 2) + Math.pow(y - alarm_y, 2)) <= _alarm_dist) {
 				facing = (alarm_x > x) ? RIGHT : LEFT;
+				_angry_timer = 4+FlxG.random();
 			}
 			
 		}
 		
 		override public function hitWall(Contact:FlxCore = null):Boolean
 		{
+			if (_angry_timer > 0) {
+				return true;
+			}
 			if (_facing == RIGHT) {
 				_facing = LEFT;
 			}else {
@@ -140,11 +147,14 @@ package com.adamatomic.Mode
 					_feeler.x = this.x + this.width;
 				}else if (_facing == LEFT) {
 					acceleration.x -= _run_speed;
-					_feeler.x = this.x -this.width;
+					_feeler.x = this.x -this.width/2;
 				}
 				_feeler.y = this.y+this.height;
 				
-				if (!_player._invisible && playerDist() < _max_player_dist && playerOnSide() && _blinded_timer <= 0) {
+				if ((!_player._invisible && playerDist() < _max_player_dist && playerOnSide() && _blinded_timer <= 0) || _angry_timer >0) {
+					if (_angry_timer > 0) {
+						_angry_timer -= FlxG.elapsed;
+					}
 					
 					acceleration.x * 10;
 					maxVelocity.x = fast_speed;
@@ -158,14 +168,18 @@ package com.adamatomic.Mode
 				if (!_world.collide(_feeler) && _blinded_timer <= 0) {
 					acceleration.x = 0;
 					velocity.x = 0;
-					play("idle");
-					_timer += FlxG.elapsed;
+					if (_angry_timer <= 0){ // if not angry and at an edge
+						play("idle");
+						_timer += FlxG.elapsed;
+					}else {
+						play("angry");
+					}
 				}else {
 					_timer = 0;
 					
 				}
 				
-				if (_timer > 2) {
+				if (_timer > 2.5) {
 					_timer = 0;
 					if (_facing == RIGHT) {
 						_facing = LEFT;

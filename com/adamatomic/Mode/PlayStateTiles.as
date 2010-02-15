@@ -258,6 +258,7 @@ package com.adamatomic.Mode
 				MapData = new TxtMap13;
 			}else {
 				FlxG.switchState(VictoryState);
+				return;
 			}
 			_tilemap.loadMap(MapData, ImgTiles, 16); 
 			_backmap.loadMap(MapData, ImgTiles, 16);

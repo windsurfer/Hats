@@ -32,7 +32,7 @@ package com.adamatomic.Mode
 		
 		public var whatami:String;
 		
-		public function Hat(WhichHat:String, PlayerRef:Player, for_gui:Boolean = false )
+		public function Hat(WhichHat:String, PlayerRef:Player = null, for_gui:Boolean = false )
 		{
 			_player = PlayerRef;
 			timer = 0;
@@ -95,7 +95,6 @@ package com.adamatomic.Mode
 		
 		override public function update():void 
 		{
-			super.update();
 			if (whatami == SMOKE_HAT) {
 				timer += FlxG.elapsed;
 				if (timer >= 0.1) {
@@ -114,6 +113,14 @@ package com.adamatomic.Mode
 					
 				}
 			}
+			
+			if (_player != null){
+				this.x = _player.x - 8 + (facing == RIGHT ? 1 :0);
+				this.y = _player.y - _player.height / 2 + this.height / 2 - 11;
+				this.facing = _player.facing;
+			}
+			
+			super.update();
 		}
 		
 		

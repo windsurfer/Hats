@@ -77,10 +77,10 @@
 			sound_alarm = true;
 			
 			//Gibs emitted upon explosion
-			var _gibs:FlxEmitter = new FlxEmitter(0,0,0.05, 3);
-			_gibs.setXVelocity(-90,90);
-			_gibs.setYVelocity( -90, 90);
-			_gibs.gravity = -100;
+			var _gibs:FlxEmitter = new FlxEmitter(0,0,-3);
+			_gibs.setXVelocity(-30,30);
+			_gibs.setYVelocity( -30, 30);
+			_gibs.gravity = -30;
 			_gibs.setRotation( -180, -180);
 			_gibs.alpha = 0.5;
 			_gibs.createSprites(ImgSound,50);

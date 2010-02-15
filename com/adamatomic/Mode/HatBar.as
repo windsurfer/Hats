@@ -56,7 +56,7 @@
 				}
 				if (found_one == false) {
 					
-					var gui_hat:Hat = new Hat(_hat, _player);
+					var gui_hat:Hat = new Hat(_hat);
 					gui_hat.scrollFactor.x = 0;
 					gui_hat.scrollFactor.y = 0;
 					

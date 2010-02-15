@@ -98,9 +98,7 @@ package com.adamatomic.Mode
 		}
 		
 		private function placeHat():void {
-			_hat.x = this.x - 8 + (facing == RIGHT ? 1 :0);
-			_hat.y = this.y - this.height / 2 + _hat.height / 2 - 11;
-			_hat.facing = this.facing;
+
 		}
 		
 		public function go_invisible():void {
@@ -249,7 +247,7 @@ package com.adamatomic.Mode
 			}
 			
 			// holding the hat button
-			if (( FlxG.keys.pressed("C")) && velocity.y != 0) {
+			if (( FlxG.keys.pressed("C") || FlxG.keys.pressed("DOWN")) && velocity.y != 0) {
 				if (_cur_hat == Hat.BUNNY_HAT) {
 					velocity.x = runSpeed*3 * (facing == RIGHT ? 1 : -1);
 				}
@@ -257,19 +255,19 @@ package com.adamatomic.Mode
 			
 			
 			// CHANGE HAT
-			if (FlxG.keys.justPressed("ONE")) {
+			if (FlxG.keys.justPressed("ONE") || FlxG.keys.justPressed("A")) {
 				change_hat(0);
 			}	
-			if (FlxG.keys.justPressed("TWO")) {
+			if (FlxG.keys.justPressed("TWO") || FlxG.keys.justPressed("S")) {
 				change_hat(1);
 			}			
-			if (FlxG.keys.justPressed("THREE")) {
+			if (FlxG.keys.justPressed("THREE") || FlxG.keys.justPressed("D")) {
 				change_hat(2);
 			}			
-			if (FlxG.keys.justPressed("FOUR")) {
+			if (FlxG.keys.justPressed("FOUR") || FlxG.keys.justPressed("F")) {
 				change_hat(3);
 			}			
-			if (FlxG.keys.justPressed("FIVE")) {
+			if (FlxG.keys.justPressed("FIVE") || FlxG.keys.justPressed("G")) {
 				change_hat(4);
 			}
 			
@@ -300,7 +298,7 @@ package com.adamatomic.Mode
 			
 			
 			
-			if (FlxG.keys.pressed("C") )
+			if (FlxG.keys.pressed("C") ||FlxG.keys.pressed("DOWN") )
 			{
 				// Activate hat!
 				_hat.run();
@@ -317,9 +315,6 @@ package com.adamatomic.Mode
 				
 			//UPDATE POSITION AND ANIMATION
 			super.update();
-			
-			
-			placeHat(); // DO IT LAST
 		}
 		
 		override public function hitFloor(Contact:FlxCore=null):Boolean

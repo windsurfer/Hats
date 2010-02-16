@@ -124,7 +124,7 @@ package org.flixel
 			
 			useDefaultHotKeys = true;
 			
-			showLogo = false;
+			showLogo = true;
 			_f = null;
 			_fc = 0xffffffff;
 			_fSound = SndFlixel;
@@ -237,7 +237,8 @@ package org.flixel
 		{
 			if(event.keyCode == 192)
 			{
-				_console.toggle();
+				// disable console
+				//_console.toggle();
 				return;
 			}
 			if(useDefaultHotKeys)

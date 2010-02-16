@@ -11,10 +11,9 @@ package {
 		
 		public function Hats():void
 		{
-			
-			super(320,240,MenuState, 2);
-			FlxState.bgColor = 0xff131c1b;
-			setLogoFX(0xff729954);
+			super(320, 240, MenuState, 2.0);
+			showLogo = false;
+			FlxState.bgColor = 0xff000000;
 			useDefaultHotKeys = true;
 		}
 	}

@@ -1,15 +1,15 @@
 package {
 	import org.flixel.*;
-	import com.adamatomic.Mode.MenuState;
+	import com.globalgamejam.Hats.MenuState;
 	
 	[SWF(width="640", height="480", backgroundColor="#000000")]
 	[Frame(factoryClass = "Preloader")]
 
 
-	public class Mode extends FlxGame
+	public class Hats extends FlxGame
 	{
 		
-		public function Mode():void
+		public function Hats():void
 		{
 			
 			super(320,240,MenuState, 2);

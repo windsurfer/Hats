@@ -88,7 +88,7 @@ package com.adamatomic.Mode
 			addAnimation("run", [1, 2, 3, 0], 12);
 			addAnimation("jump", [4]);
 			addAnimation("victory", [5]);
-			change_hat(0);
+			_set_hat(0);
 			
 		}
 		
@@ -179,7 +179,12 @@ package com.adamatomic.Mode
 		
 		
 		public function change_hat(num:Number = -1):void {
-			// will change hat if it's a valid number
+			_set_hat(num);
+			FlxG.play(SndSwitchHat);
+		}
+		
+		public function _set_hat (num:Number = -1):void {
+						// will change hat if it's a valid number
 			// if -1 it will advance to the next hat
 			if (num <= -1 ) {
 				num = (_hats_avail.indexOf(_cur_hat) + 1) % _hats_avail.length;
@@ -188,7 +193,6 @@ package com.adamatomic.Mode
 				return;
 			}
 			
-			FlxG.play(SndSwitchHat);
 			_cur_hat = _hats_avail[num];
 			
 			//TODO: FIX. currently terribly inneffient

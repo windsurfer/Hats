@@ -43,7 +43,7 @@
   </includeLibraries>
   <!-- SWC Libraries -->
   <libraryPaths>
-    <!-- example: <element path="..." /> -->
+    <element path="NewgroundsAPI.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

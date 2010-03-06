@@ -5,7 +5,7 @@ package com.globalgamejam.Hats
 	public class PlayStateTiles extends FlxState
 	{
 		[Embed(source="../../../Sounds/Finals/Shoot/3.mp3")] private var SndMode:Class;
-		[Embed(source="../../../data/Marps/HornIntro.txt",mimeType="application/octet-stream")] private var TxtMap:Class;
+		[Embed(source="../../../data/Marps/CamoIntro.txt",mimeType="application/octet-stream")] private var TxtMap:Class;
 		[Embed(source = "../../../data/Marps/HornIntro.txt", mimeType = "application/octet-stream")] private var TxtMap2:Class;
 		[Embed(source = "../../../data/Marps/SpringIntro.txt", mimeType = "application/octet-stream")] private var TxtMap3:Class;
 		[Embed(source = "../../../data/Marps/BunnyIntro.txt", mimeType = "application/octet-stream")] private var TxtMap4:Class;
@@ -194,9 +194,13 @@ package com.globalgamejam.Hats
 				}
 			}
 			
-			if (_finish_door.collide(_player) && !_player.dead) {
+			if (_finish_door.collide(_player) && _player.active) {
 				for each ( soldier in _sm_soldiers) {
+					soldier._leaves_remains = false;
 					soldier.kill();
+				}
+				for each ( dead_block in _dead_blocks) {
+					dead_block.kill();
 				}
 				for each (arrow in _sm_arrows){
 					arrow.kill();

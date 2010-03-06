@@ -215,7 +215,7 @@ package com.globalgamejam.Hats
 			}
 			
 			//MOVEMENT
-			acceleration.x /= 4;
+			acceleration.x = 0;
 			
 			if ((FlxG.keys.justPressed("LEFT") || FlxG.keys.justPressed("RIGHT")) && _invisible) {
 				go_visible();

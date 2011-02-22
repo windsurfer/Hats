@@ -1,0 +1,15 @@
+Hats is a strange game made in an insane 48 hour game-jam.
+
+To compile, this worked for me:
+
+  mxmlc Hats.as --library-path+=NewgroundsAPI.swc --output=obj/my_hats.swf -static-link-runtime-shared-libraries=true -compatibility-version=3
+
+I had to us -static-link-runtime-shared-libraries to get the flex libraries to work locally (though this can be turned off if you're only deploying to the web) and I had to turn on compatibility mode due to the way Flixel rendered fonts back in Flex 3.
+
+Controls:
+
+* Arrows to move
+* 12345 to change hats
+* Down to "activate" the hat
+
+Part of the game is to figure out what each hat does. Cheers!
